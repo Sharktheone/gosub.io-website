@@ -6,6 +6,7 @@ import Section from "../components/section.astro"
 import Navigation from "../components/index/navigation.astro"
 import Socials from "../components/index/socials.astro"
 import Copyright from "../components/copyright.astro";
+import Gradient from "../components/index/gradient.astro";
 ---
 
 <Layout title="Gosub Web Browser Engine">
@@ -16,9 +17,14 @@ import Copyright from "../components/copyright.astro";
     </header>
 
 
-    <Section first>
-    <h1>Contact us</h1>
-    The best way to contact us is through either email at info at gosub.io, or via <a href="https://chat.developer.gosub.io">the developer chat</a>.
+    <Section first="first">
+        <div class="modularity">
+            <Gradient src="/gradients/modularity.svg" width={1100} height={873} top={-16}/>
+            <h1>Contact us</h1>
+            <p>
+                The best way to contact us is through either email at info at gosub.io, or via <a href="https://chat.developer.gosub.io">the developer chat</a>.
+            </p>
+        </div>
     </Section>
 
     <footer>
@@ -26,3 +32,41 @@ import Copyright from "../components/copyright.astro";
         <Copyright/>
     </footer>
 </Layout>
+
+<style>
+    h2 {
+        color: white;
+        font-size: 3rem;
+        width: 45rem;
+        text-align: center;
+    //margin: 0 auto;
+    }
+
+    p {
+        width: 60rem;
+        color: #DADADA;
+    //margin: 0 auto;
+        text-align: center;
+        margin-bottom: 8.5rem;
+    }
+
+
+    .modularity {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+
+        height: 50rem;
+    }
+
+    .modular-items {
+        display: flex;
+        justify-content: space-around;
+        width: 55rem;
+    }
+
+    .modular-items > p {
+        width: 12rem;
+    }
+</style>

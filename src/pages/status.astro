@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/layout.astro'
+import Logo from "../components/logo.astro"
+import styles from "./index.module.scss"
+import Navigation from "../components/index/navigation.astro"
+import Socials from "../components/index/socials.astro"
+import Copyright from "../components/copyright.astro";
+---
+
+<Layout title="Gosub Web Browser Engine">
+    <header class={styles.header}>
+        <Logo size={128}/>
+        <Navigation/>
+        <Socials/>
+    </header>
+
+    <h1>The current status of the Gosub Web Engine</h1>
+
+    <footer>
+        <Socials/>
+        <Copyright/>
+    </footer>
+</Layout>

@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/layout.astro'
+import Logo from "../components/logo.astro"
+import styles from "./index.module.scss"
+import Navigation from "../components/index/navigation.astro"
+import Socials from "../components/index/socials.astro"
+import Copyright from "../components/copyright.astro";
+import Gradient from "../components/index/gradient.astro";
+import Section from "../components/section.astro";
+---
+
+<Layout title="Gosub Web Browser Engine">
+    <header class={styles.header}>
+        <Logo size={128}/>
+        <Navigation/>
+        <Socials/>
+    </header>
+
+    <Section first="first">
+        <div class="modularity">
+            <Gradient src="/gradients/modularity.svg" width={1100} height={873} top={-16}/>
+            <h2>Our goals</h2>
+            <p>
+                Writing a web engine is not an simple task. There are many components involved, and many things to consider. Our goal
+                is to create a web engine that is fast, secure, and easy to use. We want to make it easy for developers to incorporate
+                our engine into their browser, and we want to make it easy for users to use those browsers. We want to make the web a
+                better place for everyone.
+            </p>
+
+            <p>Our current goals are:</p>
+            <ul>
+                <li>Implement a basic HTML parser</li>
+                <li>Implement a basic CSS parser</li>
+                <li>Implement a basic layout engine</li>
+                <li>Implement a basic rendering engine</li>
+                <li>Implement a basic networking stack</li>
+                <li>Implement a basic JavaScript engine</li>
+            </ul>
+
+            <h3>Implement a basic HTML parser</h3>
+            <p>We currently have a HTML parser that can parse almost all HTML5 documents. We are passing almost all tests
+                from the html5lib test suite which is a good sign that our parser is working correctly. There is a lot of
+                room for improvement, as the parser is not the fastest, and we want to deal with invalid HTML in a better way.</p>
+
+            <h3>Implement a basic CSS parser</h3>
+            <p>CSS is a very difficult component to get right. Besides user CSS input that needs to be parsed correctly, CSS
+                also defines a lot of properties that have their own syntax. Thus we also have a CSS syntax parser as CSS
+                Value Syntax is defined as a separate language.</p>
+
+            <p>At this point we can parse user input, and validate the properties to make sure they are valid. Next up is to
+            make sure the values can be used by the renderer. Based on external inputs like the viewport size, and the
+            properties of the elements, we need to calculate the final values for the properties.</p>
+
+            <h3>Implement a basic layout engine</h3>
+            <p>There is a basic experiment running on the layout engine. We are using a simple box model to calculate the
+                position of the elements. The layout engine is currently very simple, and does not support all CSS properties
+                yet. We are working on adding support for more properties, and making the layout engine more robust.</p>
+
+            <h3>Implement a basic rendering engine</h3>
+            <p>The current rendering engine is very much intertwined with the current layout engine. Next iterations will
+            separate these two components so both can focus on their own tasks</p>
+
+            <h3>Implement a basic networking stack</h3>
+            <p>We use internal Rust crates to fetch data from the web. We are currently working on implementing a basic
+                networking stack that can fetch data from the web, and pass it to the parser. We do have our own DNS
+                resolution system that allows us to use different kind of resolvers, including a custom system to add
+                your own domain names so you don't need to edit /etc/hosts (or windows equivalents), or use a separate
+                dns resolver.</p>
+
+            <h3>Implement a basic JavaScript engine</h3>
+            <p>Because of the complexity of JavaScript, we do not create a JavaScript engine ourselves, but use
+                the existing v8 engine for now. The idea will be that this will be pluggable so browser creators can
+                choose their own engine. We are working on a basic API to interact with the JavaScript engine, and
+                are working on a way to make sure the JavaScript engine can interact with the rest of the browser.</p>
+        </div>
+    </Section>
+
+    <footer>
+        <Socials/>
+        <Copyright/>
+    </footer>
+</Layout>
+
+
+<style>
+    h3 {
+        color: white;
+        font-size: 2.0em;
+        text-align:center;
+    }
+
+    h2 {
+        color: white;
+        font-size: 3rem;
+        width: 45rem;
+        text-align: center;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #DADADA;
+        text-align: center;
+    }
+
+
+    .modularity {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+
+        height: 50rem;
+    }
+
+    .modular-items {
+        display: flex;
+        justify-content: space-around;
+        width: 55rem;
+    }
+
+    .modular-items > p {
+        width: 12rem;
+    }
+</style>
