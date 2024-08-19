@@ -10,16 +10,17 @@ import Modularity from "../components/index/modularity.astro"
 import Status from "../components/index/status.astro"
 import Contribute from "../components/index/contribute.astro"
 import Copyright from "../components/copyright.astro";
+import Navbar from "../components/index/navbar.astro";
 ---
 
 <Layout title="Gosub Web Browser Engine">
     <header class={styles.header}>
-        <Logo size={128}/>
-        <Navigation/>
-        <Socials/>
+        <!--<Logo size={128}/>-->
+        <!--<Navigation/>-->
+        <!--<Socials/>-->
+        <Navbar/>
     </header>
     <Hero/>
-
 
     <Section first>
         <Modularity/>
