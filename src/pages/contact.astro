@@ -5,10 +5,6 @@ import styles from "./index.module.scss"
 import Section from "../components/section.astro"
 import Navigation from "../components/index/navigation.astro"
 import Socials from "../components/index/socials.astro"
-import Hero from "../components/index/hero.astro"
-import Modularity from "../components/index/modularity.astro"
-import Status from "../components/index/status.astro"
-import Contribute from "../components/index/contribute.astro"
 import Copyright from "../components/copyright.astro";
 ---
 
@@ -18,18 +14,13 @@ import Copyright from "../components/copyright.astro";
         <Navigation/>
         <Socials/>
     </header>
-    <Hero/>
 
 
     <Section first>
-        <Modularity/>
+    <h1>Contact us</h1>
+    The best way to contact us is through either email at info at gosub.io, or via <a href="https://chat.developer.gosub.io">the developer chat</a>.
     </Section>
-    <Section>
-        <Status/>
-    </Section>
-    <Section last>
-        <Contribute/>
-    </Section>
+
     <footer>
         <Socials/>
         <Copyright/>

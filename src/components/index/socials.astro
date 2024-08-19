@@ -1,24 +1,22 @@
 ---
 import { Image } from 'astro:assets';
-
-
 ---
 
 
-<div>
-    <ul>
+<div class="socials">
+    <ul class="center">
         <li>
-            <a href="https://discord.gosub.io">
+            <a href="https://chat.gosub.io">
                 <Image src="/icons/discord.svg" alt="Discord" width="32" height="32" />
             </a>
-            </li>
+        </li>
         <li>
-            <a>
+            <a href="https://github.com/gosub-io/gosub-engine">
                 <Image src="/icons/github.svg" alt="Github" width="32" height="32" />
             </a>
         </li>
         <li>
-            <a>
+            <a href="https://chat.gosub.io">
                 <Image src="/icons/zulip.svg" alt="Zulip" width="32" height="32" />
                 </a>
         </li>
@@ -29,6 +27,16 @@ import { Image } from 'astro:assets';
 
 
 <style>
+
+    .center {
+        margin: auto;
+    }
+
+    .socials {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
     ul {
         list-style: none;
         display: flex;
@@ -47,4 +55,5 @@ import { Image } from 'astro:assets';
         font-size: 1.25rem;
         font-weight: normal;
     }
+
 </style>

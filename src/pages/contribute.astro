@@ -2,13 +2,9 @@
 import Layout from '../layouts/layout.astro'
 import Logo from "../components/logo.astro"
 import styles from "./index.module.scss"
-import Section from "../components/section.astro"
 import Navigation from "../components/index/navigation.astro"
 import Socials from "../components/index/socials.astro"
-import Hero from "../components/index/hero.astro"
-import Modularity from "../components/index/modularity.astro"
-import Status from "../components/index/status.astro"
-import Contribute from "../components/index/contribute.astro"
+import Copyright from "../components/copyright.astro";
 ---
 
 <Layout title="Gosub Web Browser Engine">
@@ -22,5 +18,6 @@ import Contribute from "../components/index/contribute.astro"
 
     <footer>
         <Socials/>
+        <Copyright/>
     </footer>
 </Layout>
