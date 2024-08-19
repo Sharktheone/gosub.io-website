@@ -23,10 +23,10 @@ import { Image } from 'astro:assets';
                 </div>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
-                        <a href="#" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Goals</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Current Status</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
+                        <a href="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">Home</a>
+                        <a href="/goals" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Goals</a>
+                        <a href="/status" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Current Status</a>
+                        <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@ import { Image } from 'astro:assets';
 
     <div class="relative sm:hidden right-0" id="mobile-menu" x-show="open" x-cloak x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full">
         <div class="space-y-1 px-2 pb-3 pt-2">
-            <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a>
+            <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Home</a>
             <a href="/goals" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Goal</a>
             <a href="/status" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Current Status</a>
             <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
@@ -56,32 +56,4 @@ import { Image } from 'astro:assets';
 </nav>
 
 <style>
-    /*
-    nav {
-        background-color: #00000080;
-        height: 4.5rem;
-        width: 40rem;
-        border-radius: 9999rem;
-        color: white;
-    }
-
-    ul {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
-        margin: 0 2rem;
-        padding: 0;
-    }
-
-    a {
-        color: white;
-        text-decoration: none;
-        margin: 0 10px;
-        font-size: 1.25rem;
-        font-weight: normal;
-    }
-
-     */
 </style>
