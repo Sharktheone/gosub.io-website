@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/layout.astro'
-import Logo from "../components/logo.astro"
-import styles from "./index.module.scss"
 import Section from "../components/section.astro"
-import Navigation from "../components/index/navigation.astro"
 import Socials from "../components/index/socials.astro"
 import Hero from "../components/index/hero.astro"
 import Modularity from "../components/index/modularity.astro"
@@ -19,16 +16,16 @@ import Navbar from "../components/index/navbar.astro";
     </header>
     <Hero/>
 
-    <Section first>
+    <Section first={true}>
         <Modularity/>
     </Section>
     <Section>
         <Status/>
     </Section>
-    <Section last>
+    <Section last={true}>
         <Contribute/>
     </Section>
-    <footer>
+    <footer class="bg-black bg-opacity-50 rounded-md">
         <Socials/>
         <Copyright/>
     </footer>

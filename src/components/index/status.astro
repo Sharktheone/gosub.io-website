@@ -2,28 +2,24 @@
 import Gradient from "./gradient.astro"
 ---
 
-<div class="status">
+<section class="status">
     <Gradient src="/gradients/status-left.svg" width={1416} height={2118} top={-48} left={-36} scale={1.2}/>
-    <div>
-        <h2>Current status of the project</h2>
-        <p>
-            Ride now, we are working on the core components of the browser like the CSS System, rendering pipeline or JS
-            Integration
+    <div class="md:p-3 rounded-md">
+        <h2 class="text-3xl mb-2">
+            Current status of the project
+        </h2>
+        <p class="mb-3 mt-3 text-justify text-white">
+            The project is still in its early stages. We are working on the core components of the engine like the CSS
+            system, rendering pipeline and JS integration. We are also working on the architecture of the engine to make
+            it as modular as possible.
         </p>
+        <div class="buttons">
+            <a class="button read-more" href="/status">&raquo; Read more</a>
+        </div>
     </div>
-    <div class="dev-focus">
-        <Gradient src="/gradients/status-right.svg" width={1339} height={1817} top={-48} right={0} rotate={45} scale={1.5}/>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-
-    </div>
-</div>
-
+</section>
 
 <style>
-
     .status {
         padding: 4rem;
         display: flex;
@@ -31,31 +27,9 @@ import Gradient from "./gradient.astro"
         position: relative;
     }
 
-
-    h2 {
-        max-width: 28rem;
-        margin: 0;
+    .read-more {
+        background-color: black;
+        color: white;
+        border: 2px solid white;
     }
-
-    p {
-        max-width: 28rem;
-    }
-
-    .dev-focus {
-        display: grid;
-        position: relative;
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 4rem;
-        column-gap: 2rem;
-    }
-
-    .dev-focus > div {
-        width: 25rem;
-        height: 12rem;
-        border: 2px solid #D9D9D9;
-        border-radius: 1rem;
-        background-color: #0000007D;
-    }
-
-
 </style>

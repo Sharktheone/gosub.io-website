@@ -1,18 +1,17 @@
 ---
-
 import Gradient from "./gradient.astro"
 ---
 
-<section>
-    <div class="hero">
-        <Gradient src="/gradients/blurred-logo.svg" width={1607} height={1086} top={-20} scale={1.2}/>
-        <h1 class="text-4xl">Gosub - The Gateway to Optimized Search and Unlimited Browsing</h1>
-        <p>Discover a customizable browser engine built for the modern web.</p>
-        <div class="buttons">
-            <a class="button learn-more" href="/learn-more">Learn More</a>
-            <a class="button contribute" href="/contribute">Contribute</a>
+<section class="hero text-center ">
+    <Gradient src="/gradients/blurred-logo.svg" width={1607} height={1086} top={-20} scale={1.2}/>
 
-        </div>
+    <h1 class="text-4xl">Gosub - The Gateway to Optimized Search and Unlimited Browsing</h1>
+
+    <p>Discover a customizable browser engine built for the modern web.</p>
+
+    <div class="buttons">
+        <a class="button learn-more" href="/learn-more">Learn More</a>
+        <a class="button contribute" href="/contribute">Contribute</a>
     </div>
 </section>
 
@@ -26,7 +25,7 @@ import Gradient from "./gradient.astro"
         justify-content: center;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.17);
-        background-image: url("/gradients/texture.png");
+        //background-image: url("/gradients/texture.png");
         background-size: 100%;
 
         border-radius: 2rem;
@@ -44,23 +43,6 @@ import Gradient from "./gradient.astro"
         display: flex;
         justify-content: center;
         margin-bottom: 4rem;
-    }
-
-
-    .buttons {
-        display: flex;
-        //justify-content: space-between;
-        align-items: center;
-        gap: 2rem;
-        width: 90%;
-    }
-
-    button {
-        width: 30%;
-        height: 4.5rem;
-        border-radius: .25rem;
-        border: none;
-        font-size: 1.25rem;
     }
 
     .learn-more {

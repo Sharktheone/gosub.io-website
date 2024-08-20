@@ -2,76 +2,51 @@
 
 import Logo from "../logo.astro"
 import Gradient from "./gradient.astro"
-import {Image} from "astro:assets";
 ---
 
-
-<div class="contribute">
-    <div>
-        <h2>
+<section class="contribution">
+    <div class="md:p-3 rounded-md">
+        <h2 class="text-3xl mb-2">
             Join us and contribute today!
         </h2>
-        <p>
+        <p class="mb-3 mt-3 text-justify text-white">
             Become part of our open-source community and help shape the future of browsing.
         </p>
         <div class="buttons">
-            <a href="https://github.com/gosub-io/gosub-engine" class="button github">
-                <Image class="align-center" src="/icons/github.svg" alt="Github" width="32" height="32" />
-                Github
-            </a>
-            <a href="https://chat.developer.gosub.io" class="button zulip">
-                <Image class="align-center" src="/icons/zulip.svg" alt="Zulip" width="32" height="32" />
-                Zulip
-            </a>
+            <a href="https://github.com/gosub-io/gosub-engine" class="button github">Github</a>
+            <a href="https://chat.developer.gosub.io" class="button zulip">Zulip</a>
         </div>
     </div>
-    <div class="logo">
-        <Logo size={512} />
-        <Gradient src="/gradients/logo-bg.svg" width={848} height={842} top={-10} scale={1.7}/>
-    </div>
-</div>
-
+    <!--<div class="sm:basis-1/3 p-2">-->
+    <!--    <p class="min-h-48 p float-end">-->
+    <!--        <Logo size={200} />-->
+    <!--    </p>-->
+    <!--</div>-->
+    <Gradient src="/gradients/logo-bg.svg" width={348} height={242} top={-10} scale={1.4}/>
+</section>
 
 <style>
-    h2, p {
-        max-width: 32rem;
-        margin-top: 0;
-    }
-
-
-    .contribute {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 4rem;
-    }
-
-    .buttons {
-        display: flex;
-        gap: 2rem;
-        width: 50rem;
-    }
 
     .github {
-        color: white;
         background-color: black;
+        color: white;
         border: 2px solid white;
-    }
-
-    .align-center {
-        vertical-align: middle;
-        text-align: center;
-        align-items: center;
     }
 
     .zulip {
-        color: white;
+        background-color: #F2F2F2;
+        color: black;
+    }
+
+    .learn-more {
         background-color: black;
+        color: white;
         border: 2px solid white;
     }
 
-    .logo {
-        position: relative;
+    .contribute {
+        background-color: #F2F2F2;
+        color: black;
     }
 
 </style>

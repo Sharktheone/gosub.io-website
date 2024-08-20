@@ -6,7 +6,7 @@ interface Props {
 
 const {first, last}: Props = Astro.props
 
-let classes = ""
+let classes = "p-4 "
 if (first) classes += "first "
 if (last) classes += "last "
 ---
@@ -16,7 +16,7 @@ if (last) classes += "last "
     <span class="outer">
         <span/>
     </span>
-    <div>
+    <div class="p-8">
         <slot/>
     </div>
 </section>
@@ -40,7 +40,7 @@ if (last) classes += "last "
     div {
         width: 100%;
         min-height: 8rem;
-        background-image: url("/gradients/texture.png");
+        //background-image: url("/gradients/texture.png");
         background-size: 80rem;
         background-repeat: repeat;
         background-position: -4rem;
