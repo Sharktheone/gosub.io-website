@@ -1,23 +1,49 @@
 ---
 import Layout from '../layouts/layout.astro'
 import Logo from "../components/logo.astro"
-import styles from "./index.module.scss"
 import Navigation from "../components/index/navigation.astro"
 import Socials from "../components/index/socials.astro"
 import Copyright from "../components/copyright.astro";
+import Gradient from "../components/index/gradient.astro";
+import Section from "../components/section.astro";
+import Navbar from "../components/index/navbar.astro";
+import Modularity from "../components/index/modularity.astro";
 ---
 
 <Layout title="Gosub Web Browser Engine">
-    <header class={styles.header}>
-        <Logo size={128}/>
-        <Navigation/>
-        <Socials/>
+    <header>
+        <Navbar/>
     </header>
 
-    <h1>Here be contribution</h1>
+    <Section first={true}>
+        <section class="status lg:p-3">
+            <Gradient src="/gradients/status-left.svg" top={-20} width={416} height={118} scale={1.2}/>
+            <Gradient src="/gradients/status-right.svg" top={10} width={416} height={118} scale={1.2}/>
 
-    <footer>
+            <div class="flex-row">
+                <div class="basic-1/3">
+                    <h2 class="text-3xl mb-2">
+                        Contribute
+                    </h2>
+                    <p class="mb-3 mt-3">
+                    </p>
+
+
+                    <div class="buttons mt-8">
+                        <a class="button back" href="/">&laquo; Back</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </Section>
+
+    <footer class="bg-black bg-opacity-50 rounded-md">
         <Socials/>
         <Copyright/>
     </footer>
 </Layout>
+
+
+<style>
+</style>

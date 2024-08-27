@@ -1,72 +1,55 @@
 ---
 import Layout from '../layouts/layout.astro'
 import Logo from "../components/logo.astro"
-import styles from "./index.module.scss"
-import Section from "../components/section.astro"
 import Navigation from "../components/index/navigation.astro"
 import Socials from "../components/index/socials.astro"
 import Copyright from "../components/copyright.astro";
 import Gradient from "../components/index/gradient.astro";
+import Section from "../components/section.astro";
+import Navbar from "../components/index/navbar.astro";
+import Modularity from "../components/index/modularity.astro";
 ---
 
 <Layout title="Gosub Web Browser Engine">
-    <header class={styles.header}>
-        <Logo size={128}/>
-        <Navigation/>
-        <Socials/>
+    <header>
+        <Navbar/>
     </header>
 
-
     <Section first={true}>
-        <div class="modularity">
-            <Gradient src="/gradients/modularity.svg" width={1100} height={873} top={-16}/>
-            <h1>Contact us</h1>
-            <p>
-                The best way to contact us is through either email at info at gosub.io, or via <a href="https://chat.developer.gosub.io">the developer chat</a>.
-            </p>
-        </div>
+        <section class="status lg:p-3">
+            <Gradient src="/gradients/status-left.svg" top={-20} width={416} height={118} scale={1.2}/>
+            <Gradient src="/gradients/status-right.svg" top={10} width={416} height={118} scale={1.2}/>
+
+            <div class="flex-row">
+                <div class="basic-1/3">
+                    <h2 class="text-3xl mb-2">
+                        Contact us
+                    </h2>
+                    <p class="mb-3 mt-3">
+                        The best way to get into contact with us is through our Zulip chat. We are always available to answer your questions and to help you
+                        with any problems you might have. We are also available on Github, so you can create an issue or a pull request if you have any suggestions
+                        or improvements.
+                    </p>
+                    <p class="mb-3 mt-3">
+                        You can also drop us an email at <code>info@gosub.io</code>.
+                    </p>
+
+
+                    <div class="buttons mt-8">
+                        <a class="button back" href="/">&laquo; Back</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
     </Section>
 
-    <footer>
+    <footer class="bg-black bg-opacity-50 rounded-md">
         <Socials/>
         <Copyright/>
     </footer>
 </Layout>
 
+
 <style>
-    h2 {
-        color: white;
-        font-size: 3rem;
-        width: 45rem;
-        text-align: center;
-    //margin: 0 auto;
-    }
-
-    p {
-        width: 60rem;
-        color: #DADADA;
-    //margin: 0 auto;
-        text-align: center;
-        margin-bottom: 8.5rem;
-    }
-
-
-    .modularity {
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        align-items: center;
-
-        height: 50rem;
-    }
-
-    .modular-items {
-        display: flex;
-        justify-content: space-around;
-        width: 55rem;
-    }
-
-    .modular-items > p {
-        width: 12rem;
-    }
 </style>

@@ -13,21 +13,13 @@ if (last) classes += "last "
 
 
 <section class={classes}>
-    <span class="outer">
-        <span/>
-    </span>
-    <div class="p-8">
+    <div class="pt-8 pb-8">
         <slot/>
     </div>
 </section>
 
 
 <style>
-    section {
-        position: relative;
-        padding: .5rem 1rem;
-    }
-
     .first {
         padding-top: 1rem
     }
@@ -36,40 +28,16 @@ if (last) classes += "last "
         padding-bottom: 1rem
     }
 
-
     div {
         width: 100%;
         min-height: 8rem;
-        //background-image: url("/gradients/texture.png");
+        background-image: url("/gradients/texture.png");
         background-size: 80rem;
         background-repeat: repeat;
         background-position: -4rem;
 
-        border-radius: 1rem;
-        box-shadow: 0 4px 4px #0000003F;
-    }
-
-
-    span.outer {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-    }
-
-    span.outer > span {
-        position: absolute;
-        margin: .5rem 1rem;
-        inset: 0;
-        outline: 8rem solid #0000007F;
-        border-radius: 1rem;
-    }
-
-    .first > span.outer > span {
-        margin-top: 1rem;
-    }
-
-    .last > span.outer > span {
-        margin-bottom: 1rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 4px #0000008F;
     }
 
 </style>

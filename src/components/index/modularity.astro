@@ -2,7 +2,7 @@
 import Gradient from "./gradient.astro"
 import {Image} from "astro:assets"
 ---
-<div class="modularity">
+<div class="modularity lg:p-3">
     <Gradient src="/gradients/modularity.svg" width={1100} height={873} top={-16}/>
 
     <!--<div class="bg-black bg-opacity-50 md:p-3 rounded-md">-->
@@ -17,27 +17,15 @@ import {Image} from "astro:assets"
                 diverse landscape of browsers in the future.
             </p>
             <p class="mb-3 mt-3">
-                Gosub started as a project because some were not happy with the current state of web browsers. Even though it
-                seems that there are many browsers available, most of them are based on the same engine. Futhermore, the two
-                biggest browsers, Chrome and Edge, are both based on the same engine. This means that the web is controlled by
-                two companies. This is not a good situation for the web. The web should be open and free for everyone to use.
-            </p>
-            <p class="mb-3 mt-3">
                 With a pluggable engine, developers can create their own rendering pipeline, their own JavaScript engine without
                 a single company or organisation forcing their own agenda on the web.
             </p>
-            <p class="mb-3 mt-3">
-                But writing a browser engine is not an easy task. It requires a lot of knowledge in many obvious and non-obvious
-                facets of the web, protocols, standards, cpu architecture, and more. This is why we need your help. With just a
-                few developers we can bootstrap a new engine, but with more developers we can create a new engine that can
-                compete and force the big companies to be more open and free.
-            </p>
         </div>
 
-        <div class="flex flex-row flex-wrap">
-            <div class="md:basis-1/3 p-2">
+        <div class="md:flex flex-row flex-wrap">
+            <div class="sm:basis-1/3 p-2">
                 <p class="min-h-48 p-5 border-2 rounded-md border-gray-400 bg-gray-800 flex justify-center items-center">
-                    Select your JS engine
+                    Select your JavaScript engine
                     <Image src="/javascript.svg" class="m-2" alt="Javascript" width="100" height="100" />
                 </p>
             </div>
@@ -66,13 +54,5 @@ import {Image} from "astro:assets"
         align-items: center;
     }
 
-    .modular-items {
-        display: flex;
-        justify-content: space-around;
-        width: 55rem;
-    }
 
-    .modular-items > p {
-        width: 12rem;
-    }
 </style>
