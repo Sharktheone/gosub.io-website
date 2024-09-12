@@ -3,9 +3,10 @@ import Gradient from "./gradient.astro"
 ---
 
 <section class="hero text-center ">
-    <Gradient src="/gradients/blurred-logo.svg" width={1607} height={1086} top={-20} scale={1.2}/>
+    <Gradient src="/gradients/blurred-logo.svg" width={1607} height={1086} top={-1200} scale={1.2}/>
 
-    <h1 class="text-4xl">Gosub - The Gateway to Optimized Search and Unlimited Browsing</h1>
+    <h1 class="text-7xl mb-12 tracking-wide font-extrabold">Gosub</h1>
+    <h2 class="text-4xl font-bold">The Gateway to Optimized Search and Unlimited Browsing</h2>
 
     <p>Discover a customizable browser engine built for the modern web.</p>
 
@@ -20,14 +21,17 @@ import Gradient from "./gradient.astro"
 
     .buttons {
         width: 100%;
-        align-items: center;
-        justify-content: center;
+        //height: 50px;
+        //align-items: center;
+        //justify-content: center;
+        //vertical-align: center;
     }
 
     .hero {
         display: flex;
         position: relative;
         flex-direction: column;
+        vertical-align: center;
         justify-content: center;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.17);
@@ -38,7 +42,6 @@ import Gradient from "./gradient.astro"
         border: 2px solid #E0E0E0A4;
 
         padding: 2rem;
-        //width: 95%;
         width: 100%;
     }
 

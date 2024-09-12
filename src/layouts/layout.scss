@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Inter",  sans-serif;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -27,30 +27,46 @@ code {
   monospace;
 }
 
-.button {
+
+a.button {
   width: 16rem;
   height: 4.5rem;
-  border-radius: .25rem;
   border: none;
-  text-align: center;
   align-content: center;
-  text-decoration: none;
 
+}
+
+.button, .btn-hover {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  border-radius: .25rem;
   transition: scale 0.2s cubic-bezier(.68, -0.55, .27, 1.55),
   translate 0.2s cubic-bezier(.68, -0.55, .27, 1.55);
 }
 
-.button:hover {
+.button:hover, .btn-hover:hover {
   scale: 1.1;
 }
 
 .buttons {
     display: flex;
-    //justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    //vertical-align: middle;
     gap: 2rem;
     width: 90%;
 }
 
+.buttons-small > a.button {
+  width: 10rem;
+  height: 3rem;
+}
+
+.back {
+  border: 2px solid #3f5967 !important;
+  background-color: #1f2937;
+  color: white;
+}
 

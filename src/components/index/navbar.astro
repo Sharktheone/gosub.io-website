@@ -19,13 +19,16 @@ import { Image } from 'astro:assets';
             </div>
             <div class="flex flex-1 sm:items-stretch sm:justify-start" >
                 <div class="flex flex-shrink-0 items-center">
-                    <img class="h-8 w-auto" src="/gosub-logo.svg" alt="Gosub Logo">
+                <a href="/">
+                    <img class="h-10 w-auto" src="/gosub-logo.svg" alt="Gosub Logo">
+                </a>
                 </div>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                         <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Home</a>
                         <a href="/learn-more" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">About Gosub</a>
                         <a href="/status" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Current Status</a>
+                        <a href="/contribute" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contribute</a>
                         <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
                     </div>
                 </div>
@@ -37,8 +40,7 @@ import { Image } from 'astro:assets';
                 <a class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" href="https://github.com/gosub-io/gosub-engine">
                     <Image src="/icons/github.svg" alt="Github" width="24" height="24" />
                 </a>
-
-                <a class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" href="https://chat.gosub.io">
+                <a class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" href="https://chat.developer.gosub.io">
                     <Image src="/icons/zulip.svg" alt="Zulip" width="24" height="24" />
                 </a>
             </div>
@@ -50,6 +52,7 @@ import { Image } from 'astro:assets';
             <a href="/" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Home</a>
             <a href="/learn-more" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">About Gosub</a>
             <a href="/status" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Current Status</a>
+            <a href="/contribute" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contribute</a>
             <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
         </div>
     </div>

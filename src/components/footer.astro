@@ -1,0 +1,50 @@
+---
+
+import Socials from "../components/index/socials.astro"
+import Copyright from "../components/copyright.astro";
+---
+
+<footer class="bg-black bg-opacity-50 rounded-md">
+<div>
+    <Copyright/>
+</div>
+    <p>
+        <i>Spotted an issue? Send a PR at <a href="https://github.com/gosub-io/gosub.io-website">our github repository</a>.</i>
+    </p>
+
+
+    <Socials/>
+</footer>
+
+
+
+
+<style>
+
+
+div, p {
+    height: 100%;
+    margin: auto 0;
+}
+
+p {
+    width: max-content;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+
+@screen lg {
+    footer {
+        //flex-direction: row;
+    }
+}
+
+</style>
