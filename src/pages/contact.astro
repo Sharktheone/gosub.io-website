@@ -9,6 +9,7 @@ import Section from "../components/section.astro";
 import Navbar from "../components/index/navbar.astro";
 import Modularity from "../components/index/modularity.astro";
 import BackButton from "../components/back-button.astro"
+import Footer from "../components/footer.astro"
 ---
 
 <Layout title="Gosub Web Browser Engine">
@@ -41,11 +42,9 @@ import BackButton from "../components/back-button.astro"
         </section>
     </Section>
 
-    <footer class="bg-black bg-opacity-50 rounded-md">
-        <Socials/>
-        <Copyright/>
-    </footer>
 </Layout>
+
+<Footer/>
 
 
 <style>

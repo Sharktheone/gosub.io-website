@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import {Image} from 'astro:assets'
 ---
 
 
@@ -7,23 +7,22 @@ import { Image } from 'astro:assets';
     <ul class="center">
         <li>
             <a href="https://chat.gosub.io">
-                <Image src="/icons/discord.svg" alt="Discord" width="32" height="32" />
+                <Image src="/icons/discord.svg" alt="Discord" width="32" height="32"/>
             </a>
         </li>
         <li>
             <a href="https://github.com/gosub-io/gosub-engine">
-                <Image src="/icons/github.svg" alt="Github" width="32" height="32" />
+                <Image src="/icons/github.svg" alt="Github" width="32" height="32"/>
             </a>
         </li>
         <li>
             <a href="https://chat.developer.gosub.io">
-                <Image src="/icons/zulip.svg" alt="Zulip" width="32" height="32" />
+                <Image src="/icons/zulip.svg" alt="Zulip" width="32" height="32"/>
             </a>
         </li>
 
     </ul>
 </div>
-
 
 
 <style>
@@ -33,10 +32,6 @@ import { Image } from 'astro:assets';
 
     .socials {
         margin-bottom: 1rem;
-    }
-
-    a {
-        margin: 0;
     }
 
     ul {
@@ -52,9 +47,21 @@ import { Image } from 'astro:assets';
     a {
         color: white;
         text-decoration: none;
-        margin: 0 10px;
         font-size: 1.25rem;
         font-weight: normal;
+    }
+
+    li {
+        padding: 0.5rem;
+        border-radius: 999999px;
+
+        background-color: #858B9833;
+        transition: scale 0.2s cubic-bezier(.68, -0.55, .27, 1.55),
+        translate 0.2s cubic-bezier(.68, -0.55, .27, 1.55);
+    }
+
+    li:hover {
+        scale: 1.1;
     }
 
 </style>
