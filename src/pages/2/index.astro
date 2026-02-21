@@ -1,0 +1,849 @@
+---
+/**
+ * DESIGN 2: RETRO-FUTURISTIC / CRT TERMINAL
+ * 
+ * Aesthetic: 1980s sci-fi computer terminal. Phosphor green on black, scan lines,
+ * CRT curvature effect, flickering text, boot-sequence reveal animations.
+ * Think the computer in Alien or WarGames. The memorable thing: the page feels
+ * like booting up a classified military system.
+ * 
+ * Fonts: "VT323" (terminal display) + "Share Tech Mono" (body)
+ * Colors: Deep black #0a0a0a, phosphor green #33ff33, amber warning #ffaa00
+ */
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="GOSUB ENGINE // SYSTEM TERMINAL [DESIGN 02]">
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --bg: #0a0a0a;
+  --bg-screen: #0d1a0d;
+  --green: #33ff33;
+  --green-dim: #1a8a1a;
+  --green-glow: rgba(51, 255, 51, 0.15);
+  --green-faint: rgba(51, 255, 51, 0.05);
+  --amber: #ffaa00;
+  --amber-dim: rgba(255, 170, 0, 0.3);
+  --red: #ff3333;
+  --text-dim: #1a6b1a;
+  --border: #1a3a1a;
+  --terminal: 'VT323', monospace;
+  --body: 'Share Tech Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+// CRT scan lines overlay
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+}
+
+// CRT flicker + vignette
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  animation: flicker 0.15s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  100% { opacity: 1; }
+}
+
+::selection {
+  background: var(--green);
+  color: var(--bg);
+}
+
+a {
+  color: var(--green);
+  text-decoration: none;
+  &:hover {
+    color: var(--amber);
+    text-shadow: 0 0 8px var(--amber-dim);
+  }
+}
+
+// Glow text utility
+.glow {
+  text-shadow: 0 0 10px var(--green-glow), 0 0 20px var(--green-glow), 0 0 40px var(--green-glow);
+}
+
+.glow-amber {
+  color: var(--amber);
+  text-shadow: 0 0 10px var(--amber-dim), 0 0 20px var(--amber-dim);
+}
+
+// ===== SCREEN CONTAINER =====
+.screen {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+// ===== BOOT SEQUENCE =====
+.boot {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 2rem;
+  position: relative;
+  
+  &__line {
+    font-family: var(--terminal);
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    animation: typeIn 0.05s forwards;
+    
+    @for $i from 1 through 20 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.15}s;
+      }
+    }
+    
+    &--dim {
+      color: var(--text-dim);
+    }
+    
+    &--highlight {
+      color: var(--green);
+      font-size: 1.5rem;
+    }
+    
+    &--amber {
+      color: var(--amber);
+    }
+    
+    &--gap {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  &__title {
+    font-family: var(--terminal);
+    font-size: clamp(3rem, 10vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 0.05em;
+    margin: 2rem 0;
+    opacity: 0;
+    animation: glowIn 1s 3s forwards;
+  }
+  
+  &__subtitle {
+    font-family: var(--terminal);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: var(--green-dim);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: typeIn 0.3s 3.5s forwards;
+  }
+  
+  &__desc {
+    max-width: 600px;
+    color: var(--green-dim);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: typeIn 0.3s 4s forwards;
+  }
+  
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: typeIn 0.3s 4.5s forwards;
+  }
+  
+  &__cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    background: var(--green);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes typeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes glowIn {
+  from {
+    opacity: 0;
+    text-shadow: none;
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 0 20px var(--green-glow), 0 0 40px var(--green-glow), 0 0 80px var(--green-glow);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+// ===== BUTTONS =====
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--terminal);
+  font-size: 1.125rem;
+  border: 1px solid;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  background: transparent;
+  letter-spacing: 0.05em;
+  
+  &--primary {
+    color: var(--bg);
+    background: var(--green);
+    border-color: var(--green);
+    
+    &:hover {
+      background: var(--bg);
+      color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow), inset 0 0 20px var(--green-glow);
+      text-shadow: 0 0 8px var(--green-glow);
+    }
+  }
+  
+  &--secondary {
+    color: var(--green);
+    border-color: var(--border);
+    
+    &:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 10px var(--green-glow);
+    }
+  }
+}
+
+// ===== SECTION =====
+.section {
+  padding: 6rem 2rem;
+  position: relative;
+  
+  // Horizontal rule separator
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background: var(--border);
+  }
+  
+  &__header {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  
+  &__tag {
+    font-family: var(--terminal);
+    font-size: 0.875rem;
+    color: var(--amber);
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--amber);
+    flex-shrink: 0;
+  }
+  
+  &__title {
+    font-family: var(--terminal);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: 0.03em;
+  }
+}
+
+// ===== FEATURES =====
+.features {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  
+  &__card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    background: var(--bg-screen);
+    transition: all 0.3s;
+    
+    &:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 20px var(--green-faint);
+      
+      .features__icon {
+        color: var(--green);
+        text-shadow: 0 0 10px var(--green-glow);
+      }
+    }
+    
+    &::before {
+      content: attr(data-id);
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      font-family: var(--terminal);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+  }
+  
+  &__icon {
+    font-family: var(--terminal);
+    font-size: 2rem;
+    color: var(--green-dim);
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+  }
+  
+  &__title {
+    font-family: var(--terminal);
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+  
+  &__desc {
+    font-size: 0.8125rem;
+    color: var(--green-dim);
+    line-height: 1.7;
+  }
+}
+
+// ===== ARCHITECTURE TERMINAL =====
+.arch {
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  background: var(--bg-screen);
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    
+    span {
+      font-family: var(--terminal);
+      font-size: 0.875rem;
+      color: var(--text-dim);
+    }
+  }
+  
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    
+    &--r { background: var(--red); box-shadow: 0 0 4px var(--red); }
+    &--a { background: var(--amber); box-shadow: 0 0 4px var(--amber); }
+    &--g { background: var(--green); box-shadow: 0 0 4px var(--green); }
+  }
+  
+  &__body {
+    padding: 2rem;
+    font-family: var(--terminal);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  
+  &__line {
+    &--prompt {
+      color: var(--amber);
+      &::before {
+        content: '> ';
+        color: var(--green);
+      }
+    }
+    
+    &--output {
+      color: var(--green-dim);
+      padding-left: 1.5rem;
+    }
+    
+    &--blank {
+      height: 1.8em;
+    }
+    
+    &--success {
+      color: var(--green);
+      &::before {
+        content: '[OK] ';
+        color: var(--green);
+      }
+    }
+    
+    &--warn {
+      color: var(--amber);
+      &::before {
+        content: '[!!] ';
+      }
+    }
+  }
+}
+
+// ===== STATUS READOUT =====
+.readout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__text {
+    p {
+      color: var(--green-dim);
+      margin-bottom: 1rem;
+      font-size: 0.9375rem;
+    }
+  }
+  
+  &__meters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  &__meter {
+    &-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--terminal);
+      font-size: 1rem;
+      margin-bottom: 0.375rem;
+      
+      span:last-child {
+        color: var(--green-dim);
+      }
+    }
+    
+    &-bar {
+      height: 6px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    &-fill {
+      height: 100%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green-glow);
+      position: relative;
+      
+      &--amber {
+        background: var(--amber);
+        box-shadow: 0 0 10px var(--amber-dim);
+      }
+      
+      // Animated scan effect
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: scanBar 2s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes scanBar {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
+
+// ===== COMMUNITY =====
+.comm {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__panel {
+    border: 1px solid var(--border);
+    background: var(--bg-screen);
+    padding: 2rem;
+  }
+  
+  &__heading {
+    font-family: var(--terminal);
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--border);
+    
+    &::before {
+      content: '# ';
+      color: var(--amber);
+    }
+  }
+  
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    li {
+      font-size: 0.9375rem;
+      color: var(--green-dim);
+      
+      &::before {
+        content: '- ';
+        color: var(--green);
+      }
+    }
+  }
+  
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border);
+      font-family: var(--terminal);
+      font-size: 1rem;
+      transition: all 0.15s;
+      
+      &:hover {
+        border-color: var(--green);
+        background: var(--green-faint);
+        box-shadow: 0 0 15px var(--green-faint);
+        
+        span {
+          color: var(--green);
+        }
+      }
+      
+      span {
+        color: var(--text-dim);
+        transition: color 0.15s;
+      }
+    }
+  }
+}
+
+// ===== FOOTER =====
+.footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  &__copy {
+    font-family: var(--terminal);
+    font-size: 0.875rem;
+    color: var(--text-dim);
+  }
+  
+  &__prompt {
+    font-family: var(--terminal);
+    font-size: 1rem;
+    color: var(--green-dim);
+    
+    .cursor {
+      display: inline-block;
+      width: 0.5em;
+      height: 1em;
+      background: var(--green);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green-dim); }
+</style>
+
+<!-- BOOT SEQUENCE / HERO -->
+<section class="boot">
+  <div class="screen">
+    <div class="boot__line boot__line--dim">GOSUB ENGINE BIOS v0.1.0</div>
+    <div class="boot__line boot__line--dim">Copyright (c) 2026 Gosub Project</div>
+    <div class="boot__line boot__line--dim boot__line--gap">Initializing system...</div>
+    <div class="boot__line boot__line--dim">[OK] Memory safety check: RUST RUNTIME</div>
+    <div class="boot__line boot__line--dim">[OK] HTML5 parser: LOADED</div>
+    <div class="boot__line boot__line--dim">[OK] CSS3 engine: LOADED</div>
+    <div class="boot__line boot__line--dim">[OK] Vello GPU renderer: LOADED</div>
+    <div class="boot__line boot__line--amber">[!!] JS bridge: IN PROGRESS</div>
+    <div class="boot__line boot__line--dim boot__line--gap">[OK] All core modules initialized</div>
+    
+    <h1 class="boot__title glow">GOSUB</h1>
+    
+    <p class="boot__subtitle">
+      > Gateway to Optimized Searching and Unlimited Browsing_
+    </p>
+    
+    <p class="boot__desc">
+      A truly modular browser engine built from scratch in Rust. No forks. No baggage. 
+      Every component — from HTML parser to rendering backend — is independent, swappable, 
+      and yours to control.
+    </p>
+    
+    <div class="boot__actions">
+      <a href="https://github.com/gosub-io/gosub-engine" class="btn btn--primary">[ENTER] GET SOURCE</a>
+      <a href="#comm" class="btn btn--secondary">[TAB] JOIN CREW</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section__header">
+    <span class="section__tag">SYS</span>
+    <h2 class="section__title">CORE_CAPABILITIES</h2>
+  </div>
+  
+  <div class="features">
+    <div class="features__card" data-id="001">
+      <div class="features__icon">[&lt;/&gt;]</div>
+      <h3 class="features__title">MODULAR ARCH</h3>
+      <p class="features__desc">Trait-based architecture. Swap the JS engine, renderer, or layout system without forking. Every crate is standalone.</p>
+    </div>
+    <div class="features__card" data-id="002">
+      <div class="features__icon">[GPU]</div>
+      <h3 class="features__title">DUAL RENDER</h3>
+      <p class="features__desc">GPU-accelerated via Vello/wgpu or CPU-based Cairo fallback. Pluggable backends — choose your pipeline.</p>
+    </div>
+    <div class="features__card" data-id="003">
+      <div class="features__icon">[RST]</div>
+      <h3 class="features__title">RUST CORE</h3>
+      <p class="features__desc">Memory safety without GC. Concurrency without data races. Performance without compromising security.</p>
+    </div>
+    <div class="features__card" data-id="004">
+      <div class="features__icon">[MIT]</div>
+      <h3 class="features__title">OPEN SOURCE</h3>
+      <p class="features__desc">No corporate backing. MIT licensed. Built entirely by volunteers who believe the web deserves fresh thinking.</p>
+    </div>
+    <div class="features__card" data-id="005">
+      <div class="features__icon">[WEB]</div>
+      <h3 class="features__title">STANDARDS FIRST</h3>
+      <p class="features__desc">We follow specs, not existing implementations. Clean-slate compliance means better compatibility long-term.</p>
+    </div>
+    <div class="features__card" data-id="006">
+      <div class="features__icon">[DIV]</div>
+      <h3 class="features__title">ENGINE DIVERSITY</h3>
+      <p class="features__desc">The web runs on three engines. That's not healthy. We're building the fourth — one module at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="section" id="arch">
+  <div class="section__header">
+    <span class="section__tag">MAP</span>
+    <h2 class="section__title">ENGINE_PIPELINE</h2>
+  </div>
+  
+  <div class="arch">
+    <div class="arch__header">
+      <div class="arch__dot arch__dot--r"></div>
+      <div class="arch__dot arch__dot--a"></div>
+      <div class="arch__dot arch__dot--g"></div>
+      <span>gosub-engine — pipeline overview</span>
+    </div>
+    <div class="arch__body">
+      <div class="arch__line arch__line--prompt">describe --pipeline</div>
+      <div class="arch__line arch__line--blank"></div>
+      <div class="arch__line arch__line--success">STAGE 1: INPUT LAYER</div>
+      <div class="arch__line arch__line--output">networking (HTTP/S) | file_loader (local) | stream (bytes)</div>
+      <div class="arch__line arch__line--blank"></div>
+      <div class="arch__line arch__line--success">STAGE 2: PARSING &amp; PROCESSING</div>
+      <div class="arch__line arch__line--output">html5_tokenizer | css3_parser | document_tree (DOM)</div>
+      <div class="arch__line arch__line--blank"></div>
+      <div class="arch__line arch__line--success">STAGE 3: STYLE COMPUTATION</div>
+      <div class="arch__line arch__line--output">css_engine (cascade) | style_tree (computed) | custom_properties</div>
+      <div class="arch__line arch__line--blank"></div>
+      <div class="arch__line arch__line--warn">STAGE 4: RENDERING [ACTIVE DEV]</div>
+      <div class="arch__line arch__line--output">layout_engine (box model) | render_tree | draw_backend (vello/cairo)</div>
+      <div class="arch__line arch__line--blank"></div>
+      <div class="arch__line arch__line--warn">STAGE 5: SCRIPTING [IN PROGRESS]</div>
+      <div class="arch__line arch__line--output">v8_bridge | dom_api_bindings | event_loop</div>
+      <div class="arch__line arch__line--blank"></div>
+      <div class="arch__line arch__line--success">STAGE 6: OUTPUT</div>
+      <div class="arch__line arch__line--output">vello_gpu | cairo_software | terminal_debug</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section class="section" id="status">
+  <div class="section__header">
+    <span class="section__tag">LOG</span>
+    <h2 class="section__title">SYSTEM_STATUS</h2>
+  </div>
+  
+  <div class="readout">
+    <div class="readout__text">
+      <p>
+        Gosub is in early development. Core parsing and rendering 
+        capabilities are functional. We can parse HTML5 and CSS3 into 
+        a document tree and render simple pages via GPU or CPU backends.
+      </p>
+      <p>
+        We can already render parts of our own site recognizably in the 
+        Vello renderer. The architecture is modular — every major component 
+        lives in its own crate with minimal dependencies.
+      </p>
+    </div>
+    
+    <div class="readout__meters">
+      {[
+        { label: 'HTML5_PARSER', value: '85%', width: '85%', type: 'green' },
+        { label: 'CSS3_PARSER', value: '70%', width: '70%', type: 'green' },
+        { label: 'DOCUMENT_TREE', value: '60%', width: '60%', type: 'green' },
+        { label: 'LAYOUT_ENGINE', value: '40%', width: '40%', type: 'amber' },
+        { label: 'GPU_RENDERER', value: '30%', width: '30%', type: 'amber' },
+        { label: 'JS_BRIDGE', value: '20%', width: '20%', type: 'amber' },
+      ].map((item) => (
+        <div class="readout__meter">
+          <div class="readout__meter-label">
+            <span>{item.label}</span>
+            <span>{item.value}</span>
+          </div>
+          <div class="readout__meter-bar">
+            <div 
+              class={`readout__meter-fill ${item.type === 'amber' ? 'readout__meter-fill--amber' : ''}`}
+              style={`width: ${item.width}`}
+            ></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="section" id="comm">
+  <div class="section__header">
+    <span class="section__tag">NET</span>
+    <h2 class="section__title">JOIN_NETWORK</h2>
+  </div>
+  
+  <div class="comm">
+    <div class="comm__panel">
+      <h3 class="comm__heading">WANTED: CONTRIBUTORS</h3>
+      <ul class="comm__list">
+        <li>CSS property implementation</li>
+        <li>Rendering pipeline improvements</li>
+        <li>JavaScript API bindings</li>
+        <li>Testing and documentation</li>
+        <li>Research into web standards</li>
+        <li>Layout engine expansion</li>
+      </ul>
+    </div>
+    <div class="comm__panel">
+      <h3 class="comm__heading">UPLINK CHANNELS</h3>
+      <div class="comm__links">
+        <a href="https://github.com/gosub-io/gosub-engine">
+          GitHub // source code
+          <span>&gt;</span>
+        </a>
+        <a href="https://discord.gg/pweHPEc6KZ">
+          Discord // community chat
+          <span>&gt;</span>
+        </a>
+        <a href="https://gosub.zulipchat.com/">
+          Zulip // dev discussion
+          <span>&gt;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <span class="footer__copy">GOSUB ENGINE // MIT LICENSE // 2026</span>
+    <span class="footer__prompt">guest@gosub:~$ <span class="cursor"></span></span>
+  </div>
+</footer>
+
+</Base>

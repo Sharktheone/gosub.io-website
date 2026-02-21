@@ -1,27 +1,411 @@
 ---
-import Layout from '../layouts/layout.astro'
-import Section from "../components/section.astro"
-import Hero from "../components/index/hero.astro"
-import Modularity from "../components/index/modularity.astro"
-import Status from "../components/index/status.astro"
-import Contribute from "../components/index/contribute.astro"
-import Navbar from "../components/index/navbar.astro";
-import Footer from "../components/footer.astro"
+import Base from '../layouts/Base.astro'
+
+const designs = [
+  {
+    num: 1,
+    title: "Brutalist / Raw",
+    desc: "IBM Plex Mono, exposed grid, charcoal & red, ASCII blueprints",
+    bg: "#1a1a1a",
+    accent: "#e63946",
+    textColor: "#ffffff",
+  },
+  {
+    num: 2,
+    title: "Retro CRT",
+    desc: "VT323 terminal font, phosphor green on black, scan lines & boot sequence",
+    bg: "#0a0a0a",
+    accent: "#33ff33",
+    textColor: "#33ff33",
+  },
+  {
+    num: 3,
+    title: "Editorial / Magazine",
+    desc: "Playfair Display, cream & crimson, pull quotes, column layouts",
+    bg: "#faf7f2",
+    accent: "#c1272d",
+    textColor: "#1a1a1a",
+  },
+  {
+    num: 4,
+    title: "Art Deco / Geometric",
+    desc: "Cormorant Garamond, navy & gold, sunbursts, diamond ornaments",
+    bg: "#0b1628",
+    accent: "#c9a84c",
+    textColor: "#e8e0d0",
+  },
+  {
+    num: 5,
+    title: "Organic / Topographic",
+    desc: "Fraunces variable, warm sand, terracotta & sage, contour lines",
+    bg: "#f2ebe0",
+    accent: "#c4653a",
+    textColor: "#2d2a26",
+  },
+]
 ---
 
-<Layout title="Gosub Web Browser Engine">
-    <header>
-        <Navbar/>
-    </header>
-    <Hero/>
+<Base title="Gosub — Design Showcase">
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link slot="head" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <Section first={true}>
-        <Modularity/>
-    </Section>
-    <Section>
-        <Status/>
-    </Section>
-    <Section last={true}>
-        <Contribute/>
-    </Section>
-</Layout>
+  <main class="showcase">
+    <header class="showcase__header">
+      <div class="showcase__logo">
+        <img src="/gosub-logo.svg" alt="Gosub" width="64" height="72" />
+      </div>
+      <h1 class="showcase__title">
+        <span class="showcase__title-line">Design</span>
+        <span class="showcase__title-line showcase__title-line--accent">Showcase</span>
+      </h1>
+      <p class="showcase__subtitle">
+        Five distinct visual directions for the Gosub browser engine homepage.
+        <br />Each explores a different aesthetic language.
+      </p>
+    </header>
+
+    <div class="showcase__grid">
+      {designs.map((d, i) => (
+        <a
+          href={`/${d.num}/`}
+          class="card"
+          style={`--card-bg: ${d.bg}; --card-accent: ${d.accent}; --card-text: ${d.textColor}; --delay: ${i * 0.1}s;`}
+        >
+          <div class="card__number">
+            <span>{String(d.num).padStart(2, '0')}</span>
+          </div>
+          <div class="card__content">
+            <h2 class="card__title">{d.title}</h2>
+            <p class="card__desc">{d.desc}</p>
+          </div>
+          <div class="card__arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
+          </div>
+          <div class="card__shine" />
+        </a>
+      ))}
+    </div>
+
+    <footer class="showcase__footer">
+      <div class="showcase__footer-links">
+        <a href="https://github.com/gosub-io/gosub-engine" target="_blank" rel="noopener">GitHub</a>
+        <span class="showcase__footer-dot"></span>
+        <a href="https://discord.gg/pweHPEc6KZ" target="_blank" rel="noopener">Discord</a>
+        <span class="showcase__footer-dot"></span>
+        <a href="https://gosub.zulipchat.com/" target="_blank" rel="noopener">Zulip</a>
+      </div>
+      <p class="showcase__footer-copy">Gosub — Gateway to Optimized Searching and Unlimited Browsing</p>
+    </footer>
+  </main>
+</Base>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    background: #09090b;
+    color: #e4e4e7;
+    font-family: 'Space Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  :global(body) {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .showcase {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    // Subtle dot grid background
+    &::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #27272a 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+  }
+
+  // ---- HEADER ----
+
+  .showcase__header {
+    position: relative;
+    z-index: 1;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .showcase__logo {
+    margin-bottom: 2rem;
+    
+    img {
+      width: 56px;
+      height: auto;
+      filter: drop-shadow(0 0 20px rgba(96, 243, 236, 0.3));
+      animation: float 6s ease-in-out infinite;
+    }
+  }
+
+  .showcase__title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .showcase__title-line {
+    display: block;
+
+    &--accent {
+      background: linear-gradient(135deg, #60f3ec, #1e54e7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .showcase__subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #71717a;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  // ---- GRID ----
+
+  .showcase__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1px;
+    max-width: 1200px;
+    margin: 2rem auto 4rem;
+    padding: 0 2rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // ---- CARD ----
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--card-bg);
+    color: var(--card-text);
+    text-decoration: none;
+    padding: 2rem;
+    min-height: 240px;
+    border: 1px solid #27272a;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1),
+                border-color 0.35s ease;
+    animation: fadeUp 0.6s ease both;
+    animation-delay: var(--delay);
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-accent);
+      z-index: 2;
+
+      .card__arrow {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      .card__shine {
+        opacity: 1;
+      }
+
+      .card__number span {
+        color: var(--card-accent);
+      }
+    }
+  }
+
+  .card__number {
+    span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 3.5rem;
+      line-height: 1;
+      opacity: 0.15;
+      transition: color 0.3s ease, opacity 0.3s ease;
+    }
+
+    .card:hover & span {
+      opacity: 0.4;
+    }
+  }
+
+  .card__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card__title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .card__desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    opacity: 0.6;
+  }
+
+  .card__arrow {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    opacity: 0;
+    transform: translate(-8px, 8px);
+    transition: all 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+    color: var(--card-accent);
+  }
+
+  .card__shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 30%,
+      var(--card-accent) 50%,
+      transparent 70%
+    );
+    opacity: 0;
+    mix-blend-mode: soft-light;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  // 5th card spans full width on 3-col layout for visual interest
+  @media (min-width: 1024px) {
+    .card:nth-child(4) {
+      grid-column: 2 / 3;
+    }
+    .card:nth-child(5) {
+      grid-column: 3 / 4;
+    }
+  }
+
+  // ---- FOOTER ----
+
+  .showcase__footer {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid #18181b;
+    animation: fadeUp 0.8s ease both;
+    animation-delay: 0.6s;
+  }
+
+  .showcase__footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #a1a1aa;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #60f3ec;
+      }
+    }
+  }
+
+  .showcase__footer-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #3f3f46;
+  }
+
+  .showcase__footer-copy {
+    font-size: 0.7rem;
+    color: #52525b;
+    letter-spacing: 0.02em;
+  }
+
+  // ---- ANIMATIONS ----
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  // ---- MOBILE ----
+
+  @media (max-width: 480px) {
+    .showcase__header {
+      padding: 3rem 1.5rem 2rem;
+    }
+
+    .showcase__grid {
+      grid-template-columns: 1fr;
+      padding: 0 1rem;
+    }
+
+    .card {
+      min-height: 180px;
+    }
+  }
+</style>

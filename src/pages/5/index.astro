@@ -1,0 +1,986 @@
+---
+/**
+ * DESIGN 5: ORGANIC / TOPOGRAPHIC
+ * 
+ * Aesthetic: Natural topographic landscape. Warm earth tones, flowing contour lines,
+ * layered terrain gradients, hand-drawn feeling with organic shapes. Think geological
+ * survey meets Japanese woodblock print. Soft, warm, and deeply textured.
+ * The memorable thing: the flowing topographic contour lines and earthy warmth.
+ * 
+ * Fonts: "Fraunces" (display - variable optical size) + "Outfit" (body)
+ * Colors: Warm sand #f2ebe0, deep earth #2d2418, terracotta #c4653a, sage green #6b8f71, river blue #4a7c9b
+ */
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Gosub — Modular Browser Engine [DESIGN 05: ORGANIC]">
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100;0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600&display=swap');
+
+:root {
+  --bg: #f2ebe0;
+  --bg-warm: #ede4d6;
+  --bg-deep: #2d2418;
+  --text: #2d2418;
+  --text-light: #5a4e40;
+  --text-muted: #9a8e7e;
+  --terra: #c4653a;
+  --terra-light: #d87f5a;
+  --terra-dim: rgba(196, 101, 58, 0.12);
+  --sage: #6b8f71;
+  --sage-dim: rgba(107, 143, 113, 0.15);
+  --river: #4a7c9b;
+  --river-dim: rgba(74, 124, 155, 0.12);
+  --border: #d4c9b8;
+  --border-light: #e2d9cb;
+  --display: 'Fraunces', Georgia, serif;
+  --body: 'Outfit', 'Helvetica Neue', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  position: relative;
+}
+
+// Subtle paper texture
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+::selection {
+  background: var(--terra);
+  color: var(--bg);
+}
+
+a {
+  color: var(--terra);
+  text-decoration: none;
+  transition: color 0.3s;
+  &:hover {
+    color: var(--terra-light);
+  }
+}
+
+// ===== NAV =====
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(242, 235, 224, 0.85);
+  backdrop-filter: blur(16px);
+  
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+  }
+  
+  &__logo {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    text-decoration: none;
+    font-variation-settings: 'opsz' 72;
+    
+    &:hover { color: var(--text); text-decoration: none; }
+    
+    span {
+      font-weight: 300;
+      font-variation-settings: 'opsz' 9;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-left: 0.25rem;
+    }
+  }
+  
+  &__links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+    
+    a {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      
+      &:hover { color: var(--terra); }
+    }
+  }
+}
+
+// ===== HERO =====
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 6rem 1.5rem 3rem;
+  }
+  
+  // Topographic contour lines background
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -20%;
+    width: 80%;
+    height: 120%;
+    pointer-events: none;
+    opacity: 0.08;
+    background:
+      radial-gradient(ellipse 400px 400px at 60% 30%, transparent 39%, var(--terra) 40%, transparent 41%),
+      radial-gradient(ellipse 500px 500px at 60% 30%, transparent 39%, var(--terra) 40%, transparent 41%),
+      radial-gradient(ellipse 600px 600px at 60% 30%, transparent 39%, var(--terra) 40%, transparent 41%),
+      radial-gradient(ellipse 700px 700px at 60% 30%, transparent 39%, var(--sage) 40%, transparent 41%),
+      radial-gradient(ellipse 800px 800px at 60% 30%, transparent 39%, var(--sage) 40%, transparent 41%),
+      radial-gradient(ellipse 900px 900px at 60% 30%, transparent 39%, var(--sage) 40%, transparent 41%),
+      radial-gradient(ellipse 1000px 1000px at 60% 30%, transparent 39%, var(--river) 40%, transparent 41%),
+      radial-gradient(ellipse 1100px 1100px at 60% 30%, transparent 39%, var(--river) 40%, transparent 41%),
+      radial-gradient(ellipse 1200px 1200px at 60% 30%, transparent 39%, var(--river) 40%, transparent 41%);
+  }
+  
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--terra);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: softIn 1s 0.2s forwards;
+    
+    &::before {
+      content: '';
+      width: 32px;
+      height: 2px;
+      background: var(--terra);
+      border-radius: 1px;
+    }
+  }
+  
+  &__title {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    opacity: 0;
+    animation: softIn 1s 0.4s forwards;
+    
+    .soft {
+      font-weight: 300;
+      font-variation-settings: 'opsz' 9;
+      color: var(--text-light);
+      display: block;
+    }
+  }
+  
+  &__desc {
+    max-width: 520px;
+    color: var(--text-light);
+    font-size: 1.0625rem;
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: softIn 1s 0.6s forwards;
+  }
+  
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: softIn 1s 0.8s forwards;
+  }
+}
+
+@keyframes softIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== BUTTONS =====
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-family: var(--body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  border: none;
+  border-radius: 100px;
+  
+  &--primary {
+    background: var(--terra);
+    color: var(--bg);
+    
+    &:hover {
+      background: var(--terra-light);
+      color: var(--bg);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--terra-dim);
+      text-decoration: none;
+    }
+  }
+  
+  &--outline {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    
+    &:hover {
+      border-color: var(--terra);
+      color: var(--terra);
+      text-decoration: none;
+    }
+  }
+}
+
+// ===== SECTION =====
+.section {
+  padding: 6rem 3rem;
+  
+  @media (max-width: 768px) {
+    padding: 4rem 1.5rem;
+  }
+  
+  &--warm {
+    background: var(--bg-warm);
+  }
+  
+  &--dark {
+    background: var(--bg-deep);
+    color: var(--bg);
+    
+    .section__label { color: var(--terra-light); }
+    .section__title { color: var(--bg); }
+  }
+  
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  &__header {
+    margin-bottom: 4rem;
+    max-width: 600px;
+  }
+  
+  &__header--center {
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  &__label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--terra);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    
+    &::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 1px;
+    }
+  }
+  
+  &__label--center {
+    justify-content: center;
+    
+    &::before { display: none; }
+  }
+  
+  &__title {
+    font-family: var(--display);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 700;
+    font-variation-settings: 'opsz' 72;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  &__subtitle {
+    margin-top: 1rem;
+    color: var(--text-light);
+    font-size: 1.0625rem;
+    max-width: 500px;
+  }
+}
+
+// ===== FEATURES =====
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__card {
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(45, 36, 24, 0.08);
+      border-color: transparent;
+      
+      .features__dot {
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+  &__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: 1.25rem;
+    transition: transform 0.4s;
+    
+    &--terra { background: var(--terra); }
+    &--sage { background: var(--sage); }
+    &--river { background: var(--river); }
+  }
+  
+  &__title {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variation-settings: 'opsz' 48;
+    margin-bottom: 0.5rem;
+  }
+  
+  &__desc {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+}
+
+// ===== QUOTE BANNER =====
+.quote {
+  padding: 5rem 3rem;
+  background: var(--bg-deep);
+  color: var(--bg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  
+  // Organic contour pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.05;
+    background:
+      radial-gradient(ellipse 600px 300px at 20% 50%, transparent 39%, var(--terra-light) 40%, transparent 41%),
+      radial-gradient(ellipse 700px 350px at 20% 50%, transparent 39%, var(--terra-light) 40%, transparent 41%),
+      radial-gradient(ellipse 800px 400px at 80% 50%, transparent 39%, var(--sage) 40%, transparent 41%),
+      radial-gradient(ellipse 900px 450px at 80% 50%, transparent 39%, var(--sage) 40%, transparent 41%);
+    pointer-events: none;
+  }
+  
+  &__text {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    font-style: italic;
+    font-variation-settings: 'opsz' 24;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+    
+    em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--terra-light);
+    }
+  }
+}
+
+// ===== ARCHITECTURE =====
+.arch {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__intro {
+    p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+  }
+  
+  &__flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  &__step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    position: relative;
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--border-light);
+    }
+  }
+  
+  &__num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--terra-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--terra);
+  }
+  
+  &__step-content {
+    h4 {
+      font-family: var(--display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      font-variation-settings: 'opsz' 48;
+      margin-bottom: 0.125rem;
+    }
+    
+    p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+  }
+}
+
+// ===== STATUS =====
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__text {
+    p {
+      color: rgba(242, 235, 224, 0.7);
+      margin-bottom: 1rem;
+    }
+  }
+  
+  &__bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  &__bar {
+    &-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      
+      span:last-child {
+        color: rgba(242, 235, 224, 0.5);
+      }
+    }
+    
+    &-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    &-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--terra), var(--terra-light));
+      
+      &--sage {
+        background: linear-gradient(90deg, var(--sage), #8ab890);
+      }
+    }
+  }
+}
+
+// ===== CONTRIBUTE =====
+.contribute {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &__panel {
+    padding: 2.5rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+  }
+  
+  &__heading {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    li {
+      font-size: 0.9375rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      
+      &::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sage);
+        flex-shrink: 0;
+      }
+    }
+  }
+  
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: var(--bg);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      transition: all 0.3s;
+      
+      &:hover {
+        background: var(--terra-dim);
+        color: var(--terra);
+        transform: translateX(4px);
+        text-decoration: none;
+      }
+      
+      span {
+        color: var(--text-muted);
+        transition: color 0.3s;
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+// ===== FOOTER =====
+.footer {
+  padding: 3rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  
+  &__copy {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+  
+  &__links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 0.75rem;
+    
+    a {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      
+      &:hover { color: var(--terra); }
+    }
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/5" class="nav__logo">gosub<span>engine</span></a>
+  <div class="nav__links">
+    <a href="#features">Features</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#status">Status</a>
+    <a href="https://github.com/gosub-io/gosub-engine">GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__inner">
+    <span class="hero__eyebrow">Open Source / Rust / MIT Licensed</span>
+    
+    <h1 class="hero__title">
+      A browser engine
+      <span class="soft">built from the ground up</span>
+    </h1>
+    
+    <p class="hero__desc">
+      Gosub is a truly modular browser engine written from scratch in Rust. 
+      Every component is independent and composable. No forks, no corporate 
+      agenda &mdash; just open technology for an open web.
+    </p>
+    
+    <div class="hero__actions">
+      <a href="https://github.com/gosub-io/gosub-engine" class="btn btn--primary">Get the Source</a>
+      <a href="#community" class="btn btn--outline">Join Community</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section section--warm" id="features">
+  <div class="section__inner">
+    <div class="section__header">
+      <span class="section__label">What Makes Gosub Different</span>
+      <h2 class="section__title">Designed for<br/>real modularity</h2>
+    </div>
+    
+    <div class="features">
+      <article class="features__card">
+        <div class="features__dot features__dot--terra"></div>
+        <h3 class="features__title">Modular by nature</h3>
+        <p class="features__desc">Trait-based architecture means you can swap the JS engine, renderer, or layout system without forking anything.</p>
+      </article>
+      <article class="features__card">
+        <div class="features__dot features__dot--sage"></div>
+        <h3 class="features__title">Dual render backends</h3>
+        <p class="features__desc">GPU-accelerated via Vello, or CPU-based Cairo. The drawing backend is pluggable by design.</p>
+      </article>
+      <article class="features__card">
+        <div class="features__dot features__dot--river"></div>
+        <h3 class="features__title">Written in Rust</h3>
+        <p class="features__desc">Memory safety without GC. Concurrency without data races. Performance without compromising security.</p>
+      </article>
+      <article class="features__card">
+        <div class="features__dot features__dot--sage"></div>
+        <h3 class="features__title">Community-driven</h3>
+        <p class="features__desc">No corporate backing. MIT licensed. Built entirely by volunteers who believe in a diverse web.</p>
+      </article>
+      <article class="features__card">
+        <div class="features__dot features__dot--terra"></div>
+        <h3 class="features__title">Standards first</h3>
+        <p class="features__desc">We follow web specifications, not existing implementations. Cleaner architecture, better compatibility.</p>
+      </article>
+      <article class="features__card">
+        <div class="features__dot features__dot--river"></div>
+        <h3 class="features__title">Breaking the monoculture</h3>
+        <p class="features__desc">The web runs on three engines. That's not healthy. We're building the fourth, one module at a time.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote">
+  <p class="quote__text">
+    "The web shouldn't depend on three engines.<br/>
+    We're building <em>something new</em> &mdash; from the soil up."
+  </p>
+</div>
+
+<!-- ARCHITECTURE -->
+<section class="section" id="architecture">
+  <div class="section__inner">
+    <div class="section__header">
+      <span class="section__label">Technical Architecture</span>
+      <h2 class="section__title">How the<br/>engine flows</h2>
+      <p class="section__subtitle">
+        Each stage is an independent module with well-defined interfaces. 
+        Use them together or pick just what you need.
+      </p>
+    </div>
+    
+    <div class="arch">
+      <div class="arch__intro">
+        <p>
+          Gosub separates concerns into distinct stages. Want a headless 
+          document processor? A custom rendering pipeline? A specialized 
+          web crawler?
+        </p>
+        <p>
+          Pick your components and build your vision. Every crate works 
+          standalone with minimal dependencies.
+        </p>
+      </div>
+      
+      <div class="arch__flow">
+        <div class="arch__step">
+          <div class="arch__num">1</div>
+          <div class="arch__step-content">
+            <h4>Input Layer</h4>
+            <p>Networking, file loading, byte stream abstraction</p>
+          </div>
+        </div>
+        <div class="arch__step">
+          <div class="arch__num">2</div>
+          <div class="arch__step-content">
+            <h4>Parsing & Processing</h4>
+            <p>HTML5 tokenizer, CSS3 parser, DOM tree construction</p>
+          </div>
+        </div>
+        <div class="arch__step">
+          <div class="arch__num">3</div>
+          <div class="arch__step-content">
+            <h4>Style Computation</h4>
+            <p>Cascade resolution, computed styles, custom properties</p>
+          </div>
+        </div>
+        <div class="arch__step">
+          <div class="arch__num">4</div>
+          <div class="arch__step-content">
+            <h4>Rendering Pipeline</h4>
+            <p>Box model layout, render tree, pluggable draw backends</p>
+          </div>
+        </div>
+        <div class="arch__step">
+          <div class="arch__num">5</div>
+          <div class="arch__step-content">
+            <h4>Scripting Bridge</h4>
+            <p>V8 integration, DOM API bindings, event loop</p>
+          </div>
+        </div>
+        <div class="arch__step">
+          <div class="arch__num">6</div>
+          <div class="arch__step-content">
+            <h4>Output Layer</h4>
+            <p>Vello GPU, Cairo software, terminal debug mode</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section class="section section--dark" id="status">
+  <div class="section__inner">
+    <div class="section__header">
+      <span class="section__label">Current Progress</span>
+      <h2 class="section__title">Growing, one<br/>layer at a time</h2>
+    </div>
+    
+    <div class="status">
+      <div class="status__text">
+        <p>
+          Gosub is in early development. We can parse HTML5 and CSS3, 
+          render simple pages, and execute basic JavaScript. 
+        </p>
+        <p>
+          We can already render parts of our own site recognizably 
+          in the Vello renderer. Every major component lives in its 
+          own crate with minimal dependencies.
+        </p>
+      </div>
+      
+      <div class="status__bars">
+        {[
+          { name: 'HTML5 Parser', val: '85%', w: '85%', type: '' },
+          { name: 'CSS3 Parser', val: '70%', w: '70%', type: '' },
+          { name: 'Document Tree', val: '60%', w: '60%', type: 'sage' },
+          { name: 'Layout Engine', val: '40%', w: '40%', type: 'sage' },
+          { name: 'GPU Renderer', val: '30%', w: '30%', type: 'sage' },
+          { name: 'JS Bridge', val: '20%', w: '20%', type: 'sage' },
+        ].map((item) => (
+          <div class="status__bar">
+            <div class="status__bar-label">
+              <span>{item.name}</span>
+              <span>{item.val}</span>
+            </div>
+            <div class="status__bar-track">
+              <div 
+                class={`status__bar-fill ${item.type === 'sage' ? 'status__bar-fill--sage' : ''}`}
+                style={`width: ${item.w}`}
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUTE -->
+<section class="section" id="community">
+  <div class="section__inner">
+    <div class="section__header section__header--center">
+      <span class="section__label section__label--center">Join the Community</span>
+      <h2 class="section__title">Help us cultivate<br/>something new</h2>
+    </div>
+    
+    <div class="contribute__grid">
+      <div class="contribute__panel">
+        <h3 class="contribute__heading">Where We Need Help</h3>
+        <ul class="contribute__list">
+          <li>CSS property implementation</li>
+          <li>Rendering pipeline improvements</li>
+          <li>JavaScript API bindings</li>
+          <li>Testing and documentation</li>
+          <li>Research into web standards</li>
+          <li>Layout engine expansion</li>
+        </ul>
+      </div>
+      <div class="contribute__panel">
+        <h3 class="contribute__heading">Find Us</h3>
+        <div class="contribute__links">
+          <a href="https://github.com/gosub-io/gosub-engine">
+            GitHub &mdash; Source code
+            <span>&rarr;</span>
+          </a>
+          <a href="https://discord.gg/pweHPEc6KZ">
+            Discord &mdash; Community chat
+            <span>&rarr;</span>
+          </a>
+          <a href="https://gosub.zulipchat.com/">
+            Zulip &mdash; Dev discussion
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="footer__copy">&copy; 2026 Gosub Project &middot; MIT Licensed &middot; Built by Volunteers</p>
+  <div class="footer__links">
+    <a href="https://github.com/gosub-io/gosub-engine">GitHub</a>
+    <a href="https://discord.gg/pweHPEc6KZ">Discord</a>
+    <a href="https://gosub.zulipchat.com/">Zulip</a>
+  </div>
+</footer>
+
+</Base>

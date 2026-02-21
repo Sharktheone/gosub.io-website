@@ -1,0 +1,910 @@
+---
+/**
+ * DESIGN 3: EDITORIAL / MAGAZINE
+ * 
+ * Aesthetic: High-end print magazine. Cream paper background, elegant serif headlines,
+ * dramatic pull quotes, column layouts, refined typography with generous whitespace.
+ * Think The New York Times Magazine meets Monocle meets a Swiss design annual.
+ * The memorable thing: it feels like holding a beautifully printed tech magazine.
+ * 
+ * Fonts: "Playfair Display" (headlines) + "Crimson Pro" (body) + "DM Mono" (code/labels)
+ * Colors: Warm cream #faf7f2, deep charcoal #1a1a1a, editorial red #c1272d, ink blue #1a365d
+ */
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Gosub — The Browser Engine Quarterly [DESIGN 03: EDITORIAL]">
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #faf7f2;
+  --bg-warm: #f4efe8;
+  --bg-dark: #1a1a1a;
+  --text: #1a1a1a;
+  --text-light: #4a4a4a;
+  --text-muted: #8a8580;
+  --red: #c1272d;
+  --red-light: #e84855;
+  --blue: #1a365d;
+  --blue-light: #2c5282;
+  --border: #d4cfc7;
+  --border-light: #e8e4dd;
+  --serif: 'Playfair Display', Georgia, serif;
+  --body: 'Crimson Pro', 'Times New Roman', serif;
+  --mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--red);
+  color: white;
+}
+
+a {
+  color: var(--red);
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover {
+    color: var(--red-light);
+  }
+}
+
+// ===== MASTHEAD / NAV =====
+.masthead {
+  padding: 1rem 3rem;
+  border-bottom: 3px double var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 100;
+  
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+  }
+  
+  &__title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    
+    &:hover { color: var(--text); }
+    
+    span {
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+  }
+  
+  &__nav {
+    display: flex;
+    gap: 2rem;
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+    
+    a {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      
+      &:hover {
+        color: var(--red);
+      }
+    }
+  }
+}
+
+// ===== HERO =====
+.hero {
+  padding: 6rem 3rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem 2rem;
+  }
+  
+  &__eyebrow {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+  }
+  
+  &__title {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    max-width: 900px;
+    
+    em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--red);
+    }
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      
+      .hero__divider { display: none; }
+    }
+  }
+  
+  &__divider {
+    background: var(--border);
+  }
+  
+  &__lede {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-light);
+  }
+  
+  &__aside {
+    font-size: 0.9375rem;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+  
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+}
+
+// ===== BUTTONS =====
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.875rem 1.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  border: none;
+  
+  &--primary {
+    background: var(--red);
+    color: white;
+    
+    &:hover {
+      background: var(--red-light);
+      color: white;
+      transform: translateY(-1px);
+    }
+  }
+  
+  &--outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    
+    &:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+  }
+}
+
+// ===== PULL QUOTE =====
+.pullquote {
+  padding: 4rem 3rem;
+  background: var(--bg-dark);
+  color: white;
+  text-align: center;
+  
+  &__text {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 400;
+    font-style: italic;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+    
+    em {
+      color: var(--red-light);
+      font-style: normal;
+      font-weight: 600;
+    }
+  }
+  
+  &__attr {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.4);
+    margin-top: 1.5rem;
+  }
+}
+
+// ===== SECTION =====
+.section {
+  padding: 5rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+  
+  &--bordered {
+    border-top: 1px solid var(--border);
+  }
+  
+  &__header {
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  &__label {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  
+  &__title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  &__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// ===== FEATURES COLUMNS =====
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__item {
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--text);
+    
+    &:nth-child(even) {
+      border-top-color: var(--red);
+    }
+  }
+  
+  &__number {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  
+  &__title {
+    font-family: var(--serif);
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  
+  &__text {
+    font-size: 0.9375rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+}
+
+// ===== ARCHITECTURE =====
+.arch {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__sidebar {
+    p {
+      color: var(--text-light);
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  &__stages {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  &__stage {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border-light);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  &__num {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--red);
+    line-height: 1.4;
+  }
+  
+  &__stage-content {
+    h4 {
+      font-family: var(--serif);
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+  }
+}
+
+// ===== STATUS =====
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__text {
+    p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      font-size: 0.9375rem;
+    }
+  }
+  
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  &__item {
+    &-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.375rem;
+    }
+    
+    &-name {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    &-val {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+    
+    &-bar {
+      height: 3px;
+      background: var(--border-light);
+      position: relative;
+    }
+    
+    &-fill {
+      height: 100%;
+      background: var(--red);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+// ===== CONTRIBUTE =====
+.contribute {
+  background: var(--bg-warm);
+  padding: 5rem 3rem;
+  
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+  
+  &__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &__heading {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  &__list {
+    list-style: none;
+    
+    li {
+      font-size: 0.9375rem;
+      color: var(--text-light);
+      padding: 0.5rem 0;
+      border-bottom: 1px dotted var(--border-light);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      
+      &::before {
+        content: '\2022';
+        color: var(--red);
+        font-size: 1.25rem;
+        line-height: 1;
+      }
+    }
+  }
+  
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      
+      &:hover {
+        border-color: var(--red);
+        color: var(--text);
+        
+        span { color: var(--red); }
+      }
+      
+      span {
+        font-family: var(--mono);
+        font-size: 0.6875rem;
+        color: var(--text-muted);
+        transition: color 0.2s;
+      }
+    }
+  }
+}
+
+// ===== FOOTER =====
+.footer {
+  padding: 3rem;
+  border-top: 3px double var(--border);
+  
+  &__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  &__copy {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+  
+  &__links {
+    display: flex;
+    gap: 2rem;
+    
+    a {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      
+      &:hover { color: var(--red); }
+    }
+  }
+}
+
+// ===== ANIMATIONS =====
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Scrollbar
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+
+<!-- MASTHEAD -->
+<nav class="masthead">
+  <a href="/3" class="masthead__title">Gosub <span>Browser Engine Quarterly</span></a>
+  <div class="masthead__nav">
+    <a href="#features">Features</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#status">Status</a>
+    <a href="#contribute">Contribute</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__eyebrow">Open Source / Rust / MIT Licensed</div>
+  
+  <h1 class="hero__title">
+    The browser engine<br/>
+    you can take <em>apart</em>
+  </h1>
+  
+  <div class="hero__grid">
+    <div class="hero__lede">
+      Gosub is a modular browser engine built from scratch in Rust. 
+      No forks. No corporate agenda. Every component — from HTML parser 
+      to GPU renderer — works independently and can be swapped, 
+      replaced, or embedded on its own.
+    </div>
+    <div class="hero__divider"></div>
+    <div class="hero__aside">
+      <p>
+        The modern web runs on just three major engines, each carrying 
+        decades of technical debt and corporate priorities. Gosub is 
+        building an alternative — not by wrapping existing code, but by 
+        writing a clean-slate engine, one module at a time.
+      </p>
+      <div class="hero__actions">
+        <a href="https://github.com/gosub-io/gosub-engine" class="btn btn--primary">View Source</a>
+        <a href="#contribute" class="btn btn--outline">Join the Build</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pullquote">
+  <p class="pullquote__text">
+    "The web shouldn't depend on three engines.<br/>
+    We're building the <em>fourth</em> — one module at a time."
+  </p>
+  <p class="pullquote__attr">Gosub Project Mission</p>
+</div>
+
+<!-- FEATURES -->
+<section class="section section--bordered" id="features">
+  <div class="section__header">
+    <span class="section__label">No. 01</span>
+    <h2 class="section__title">Key Differentiators</h2>
+    <div class="section__rule"></div>
+  </div>
+  
+  <div class="columns">
+    <article class="columns__item">
+      <div class="columns__number">01</div>
+      <h3 class="columns__title">Modular by Design</h3>
+      <p class="columns__text">Trait-based architecture lets you swap the JS engine, renderer, or layout system without forking the entire project.</p>
+    </article>
+    <article class="columns__item">
+      <div class="columns__number">02</div>
+      <h3 class="columns__title">Multiple Render Backends</h3>
+      <p class="columns__text">GPU-accelerated rendering via Vello, or CPU-based Cairo fallback. The drawing backend is pluggable by design.</p>
+    </article>
+    <article class="columns__item">
+      <div class="columns__number">03</div>
+      <h3 class="columns__title">Written in Rust</h3>
+      <p class="columns__text">Memory safety without garbage collection. Concurrency without data races. Built from scratch, not a wrapper.</p>
+    </article>
+    <article class="columns__item">
+      <div class="columns__number">04</div>
+      <h3 class="columns__title">Community-Driven</h3>
+      <p class="columns__text">No corporate backing. MIT licensed. Built entirely by volunteers who believe in browser diversity.</p>
+    </article>
+    <article class="columns__item">
+      <div class="columns__number">05</div>
+      <h3 class="columns__title">Standards First</h3>
+      <p class="columns__text">We follow web specifications, not existing implementations. This means cleaner architecture and better long-term compatibility.</p>
+    </article>
+    <article class="columns__item">
+      <div class="columns__number">06</div>
+      <h3 class="columns__title">True Independence</h3>
+      <p class="columns__text">Every major component lives in its own crate with minimal dependencies. Use just the parser, or embed the whole engine.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="section section--bordered" id="architecture">
+  <div class="section__header">
+    <span class="section__label">No. 02</span>
+    <h2 class="section__title">The Engine Pipeline</h2>
+    <div class="section__rule"></div>
+  </div>
+  
+  <div class="arch">
+    <div class="arch__sidebar">
+      <p>
+        Our architecture separates concerns into distinct stages that 
+        communicate through well-defined interfaces. Each stage is an 
+        independent module that can be used standalone or as part of 
+        the full pipeline.
+      </p>
+      <p>
+        Want a headless document processor? A custom rendering pipeline? 
+        A specialized crawler? Pick your components and build your vision.
+      </p>
+    </div>
+    
+    <div class="arch__stages">
+      <div class="arch__stage">
+        <span class="arch__num">1</span>
+        <div class="arch__stage-content">
+          <h4>Input Layer</h4>
+          <p>Networking stack, file loader, abstracted byte stream interface</p>
+        </div>
+      </div>
+      <div class="arch__stage">
+        <span class="arch__num">2</span>
+        <div class="arch__stage-content">
+          <h4>Parsing & Processing</h4>
+          <p>HTML5 tokenizer/parser, CSS3 parser and AST, DOM-compatible document tree</p>
+        </div>
+      </div>
+      <div class="arch__stage">
+        <span class="arch__num">3</span>
+        <div class="arch__stage-content">
+          <h4>Style Computation</h4>
+          <p>CSS selector matching, cascade resolution, computed styles, custom properties</p>
+        </div>
+      </div>
+      <div class="arch__stage">
+        <span class="arch__num">4</span>
+        <div class="arch__stage-content">
+          <h4>Rendering Pipeline</h4>
+          <p>Layout engine (box model), render tree, pluggable drawing backends</p>
+        </div>
+      </div>
+      <div class="arch__stage">
+        <span class="arch__num">5</span>
+        <div class="arch__stage-content">
+          <h4>Scripting Bridge</h4>
+          <p>V8 integration, DOM API bindings, event loop — in progress</p>
+        </div>
+      </div>
+      <div class="arch__stage">
+        <span class="arch__num">6</span>
+        <div class="arch__stage-content">
+          <h4>Output Layer</h4>
+          <p>Vello GPU renderer, Cairo software renderer, terminal/text mode</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section class="section section--bordered" id="status">
+  <div class="section__header">
+    <span class="section__label">No. 03</span>
+    <h2 class="section__title">Where We Are Today</h2>
+    <div class="section__rule"></div>
+  </div>
+  
+  <div class="status-grid">
+    <div class="status-grid__text">
+      <p>
+        Gosub is in early development. We can parse HTML5 and CSS3, 
+        render simple pages, and execute basic JavaScript. There's 
+        a long road ahead — and that's exactly why we need contributors.
+      </p>
+      <p>
+        We can already render parts of our own site recognizably in the 
+        Vello renderer. The WebAssembly build runs in the browser.
+      </p>
+    </div>
+    
+    <div class="status-grid__items">
+      {[
+        { name: 'HTML5 Parser', val: '85%', w: '85%' },
+        { name: 'CSS3 Parser', val: '70%', w: '70%' },
+        { name: 'Document Tree', val: '60%', w: '60%' },
+        { name: 'Layout Engine', val: '40%', w: '40%' },
+        { name: 'GPU Renderer', val: '30%', w: '30%' },
+        { name: 'JS Bridge', val: '20%', w: '20%' },
+      ].map((item) => (
+        <div class="status-grid__item">
+          <div class="status-grid__item-head">
+            <span class="status-grid__item-name">{item.name}</span>
+            <span class="status-grid__item-val">{item.val}</span>
+          </div>
+          <div class="status-grid__item-bar">
+            <div class="status-grid__item-fill" style={`width: ${item.w}`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUTE -->
+<section class="contribute" id="contribute">
+  <div class="contribute__inner">
+    <div class="section__header">
+      <span class="section__label">No. 04</span>
+      <h2 class="section__title">Help Us Build It</h2>
+      <div class="section__rule"></div>
+    </div>
+    
+    <div class="contribute__grid">
+      <div>
+        <h3 class="contribute__heading">Areas Where We Need Help</h3>
+        <ul class="contribute__list">
+          <li>CSS property implementation</li>
+          <li>Rendering pipeline improvements</li>
+          <li>JavaScript API bindings</li>
+          <li>Testing and documentation</li>
+          <li>Research into web standards</li>
+          <li>Layout engine expansion (Flexbox, Grid)</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="contribute__heading">Connect With Us</h3>
+        <div class="contribute__links">
+          <a href="https://github.com/gosub-io/gosub-engine">
+            GitHub — Browse the source code
+            <span>&rarr;</span>
+          </a>
+          <a href="https://discord.gg/pweHPEc6KZ">
+            Discord — Chat with the community
+            <span>&rarr;</span>
+          </a>
+          <a href="https://gosub.zulipchat.com/">
+            Zulip — Developer discussion
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <span class="footer__copy">&copy; 2026 Gosub Project &middot; MIT Licensed &middot; Built by Volunteers</span>
+    <div class="footer__links">
+      <a href="https://github.com/gosub-io/gosub-engine">GitHub</a>
+      <a href="https://discord.gg/pweHPEc6KZ">Discord</a>
+      <a href="https://gosub.zulipchat.com/">Zulip</a>
+    </div>
+  </div>
+</footer>
+
+</Base>
