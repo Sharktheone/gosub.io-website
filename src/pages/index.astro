@@ -1,27 +1,49 @@
 ---
-import Layout from '../layouts/layout.astro'
-import Section from "../components/section.astro"
-import Hero from "../components/index/hero.astro"
-import Modularity from "../components/index/modularity.astro"
-import Status from "../components/index/status.astro"
-import Contribute from "../components/index/contribute.astro"
-import Navbar from "../components/index/navbar.astro";
-import Footer from "../components/footer.astro"
 ---
-
-<Layout title="Gosub Web Browser Engine">
-    <header>
-        <Navbar/>
-    </header>
-    <Hero/>
-
-    <Section first={true}>
-        <Modularity/>
-    </Section>
-    <Section>
-        <Status/>
-    </Section>
-    <Section last={true}>
-        <Contribute/>
-    </Section>
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Gosub Designs</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background: #111;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+        padding: 1rem 2rem;
+        background: #333;
+        border-radius: 8px;
+        transition: 0.2s;
+        font-size: 1.25rem;
+      }
+      a:hover {
+        background: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <h1>Gosub Designs</h1>
+      <a href="/1">Design 1: Brutalist / Raw</a>
+      <a href="/2">Design 2: Organic / Natural</a>
+      <a href="/3">Design 3: Cyber / Synthwave</a>
+      <a href="/4">Design 4: Maximalist Chaos</a>
+      <a href="/5">Design 5: Art Deco Geometric</a>
+    </div>
+  </body>
+</html>

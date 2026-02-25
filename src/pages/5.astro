@@ -1,0 +1,248 @@
+---
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Gosub • Architectural Web Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style lang="scss">
+      :root {
+        --navy: #0B1021;
+        --gold: #D4AF37;
+        --cream: #FDFBF7;
+        --gold-grad: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+        --font-serif: 'Marcellus', serif;
+        --font-sans: 'Montserrat', sans-serif;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      
+      body {
+        background-color: var(--navy);
+        color: var(--cream);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+      }
+
+      .frame {
+        position: fixed;
+        top: 20px; left: 20px; right: 20px; bottom: 20px;
+        border: 2px solid transparent;
+        border-image: var(--gold-grad) 1;
+        z-index: 100;
+        pointer-events: none;
+
+        &::before, &::after {
+          content: ''; position: absolute; width: 40px; height: 40px; border: 2px solid var(--gold);
+        }
+        &::before { top: -10px; left: -10px; border-right: none; border-bottom: none; }
+        &::after { bottom: -10px; right: -10px; border-left: none; border-top: none; }
+      }
+
+      .deco-line {
+        height: 1px;
+        background: var(--gold-grad);
+        width: 100%;
+        margin: 2rem 0;
+        position: relative;
+
+        &::after {
+          content: '❖'; color: var(--gold); position: absolute; top: 50%; left: 50%;
+          transform: translate(-50%, -50%); background: var(--navy); padding: 0 10px;
+          font-size: 0.8rem;
+        }
+      }
+
+      header {
+        padding: 4rem;
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        position: relative; z-index: 10;
+
+        .logo {
+          font-family: var(--font-serif);
+          font-size: 3rem;
+          color: transparent;
+          background: var(--gold-grad);
+          -webkit-background-clip: text;
+          background-clip: text;
+          letter-spacing: 10px;
+          margin-bottom: 2rem;
+          text-transform: uppercase;
+        }
+
+        nav a {
+          font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 3px;
+          color: var(--cream); text-decoration: none; text-transform: uppercase;
+          margin: 0 1.5rem; transition: 0.3s; padding-bottom: 5px;
+
+          &:hover { color: var(--gold); border-bottom: 1px solid var(--gold); }
+        }
+      }
+
+      main {
+        padding: 2rem 10vw;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .hero {
+        text-align: center;
+        margin: 8vh 0;
+
+        h1 {
+          font-family: var(--font-serif);
+          font-size: clamp(2.5rem, 5vw, 5rem);
+          font-weight: 400;
+          line-height: 1.2;
+          color: var(--cream);
+          margin-bottom: 2rem;
+          
+          em { color: var(--gold); font-style: normal; }
+        }
+
+        p {
+          font-size: 1.1rem;
+          font-weight: 300;
+          max-width: 600px;
+          margin: 0 auto;
+          color: rgba(253, 251, 247, 0.8);
+          letter-spacing: 1px;
+        }
+      }
+
+      .pillars {
+        display: flex;
+        gap: 3rem;
+        margin-top: 10rem;
+
+        .pillar {
+          flex: 1;
+          text-align: center;
+          padding: 3rem 2rem;
+          border: 1px solid rgba(212, 175, 55, 0.3);
+          position: relative;
+          background: linear-gradient(to bottom, rgba(11, 16, 33, 0), rgba(212, 175, 55, 0.05));
+          transition: 0.5s;
+
+          &::before {
+            content: ''; position: absolute; top: -1px; left: 10%; width: 80%; height: 2px;
+            background: var(--gold-grad);
+            transform: scaleX(0); transition: 0.5s;
+          }
+
+          &:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.8);
+
+            &::before { transform: scaleX(1); }
+          }
+
+          .icon {
+            font-size: 2rem; color: var(--gold); margin-bottom: 1.5rem;
+          }
+
+          h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+          }
+
+          p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: rgba(253, 251, 247, 0.7);
+          }
+        }
+      }
+
+      .status-block {
+        margin: 10rem auto;
+        border: 1px solid var(--gold);
+        padding: 5rem;
+        text-align: center;
+        max-width: 800px;
+        background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1), transparent 70%);
+
+        h2 {
+          font-family: var(--font-serif);
+          font-size: 2.5rem;
+          color: var(--gold);
+          margin-bottom: 2rem;
+          letter-spacing: 4px;
+        }
+
+        p {
+          font-size: 1rem;
+          letter-spacing: 1px;
+          line-height: 2;
+        }
+
+        .btn {
+          display: inline-block; margin-top: 3rem;
+          padding: 1rem 3rem; border: 1px solid var(--gold);
+          color: var(--gold); text-decoration: none;
+          font-family: var(--font-sans); letter-spacing: 3px; text-transform: uppercase;
+          font-size: 0.8rem; transition: 0.4s;
+          position: relative; overflow: hidden;
+
+          &::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--gold-grad); z-index: -1; transition: 0.4s;
+          }
+
+          &:hover { color: var(--navy); &::before { left: 0; } }
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="frame"></div>
+    
+    <header>
+      <div class="logo">Gosub</div>
+      <nav>
+        <a href="#vision">The Vision</a>
+        <a href="#structure">Structure</a>
+        <a href="#foundation">Foundation</a>
+      </nav>
+      <div class="deco-line"></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>An elegantly structured <em>Modular Engine</em> for the open web.</h1>
+        <p>Crafted in Rust with architectural precision. Swap the renderer, detach the layout system, construct your own experience.</p>
+      </section>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="icon">✧</div>
+          <h3>Modularity</h3>
+          <p>Trait-based architecture allowing absolute freedom. Replace any component without the burden of forking massive legacy codebases.</p>
+        </div>
+        <div class="pillar">
+          <div class="icon">✦</div>
+          <h3>Performance</h3>
+          <p>Powered by the safety and concurrency of Rust, delivering high-performance GPU-accelerated rendering through Vello.</p>
+        </div>
+        <div class="pillar">
+          <div class="icon">✧</div>
+          <h3>Independence</h3>
+          <p>A pure, community-driven initiative free from corporate monoculture. Built for those who demand structural elegance.</p>
+        </div>
+      </div>
+
+      <section class="status-block">
+        <h2>Current Foundation</h2>
+        <div class="deco-line"></div>
+        <p>HTML5 parsing into valid DOM trees and CSS3 tokenization are currently operational. We are diligently constructing the layout engine and expanding the JavaScript runtime bridge. The architecture is sound.</p>
+        <a href="#" class="btn">Examine the Code</a>
+      </section>
+    </main>
+  </body>
+</html>

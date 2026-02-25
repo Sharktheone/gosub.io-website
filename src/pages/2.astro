@@ -1,0 +1,214 @@
+---
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Gosub - Organic Web Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style lang="scss">
+      :root {
+        --sage: #C3D3C4;
+        --forest: #2C4A3B;
+        --sand: #F5F1E7;
+        --clay: #D4A373;
+        --text: #1A2E24;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      
+      body {
+        background-color: var(--sand);
+        color: var(--text);
+        font-family: 'Jost', sans-serif;
+        line-height: 1.8;
+        overflow-x: hidden;
+      }
+
+      .gradient-bg {
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200vw;
+        height: 200vh;
+        background: radial-gradient(circle at 50% 50%, var(--sage) 0%, transparent 40%),
+                    radial-gradient(circle at 80% 20%, rgba(212, 163, 115, 0.3) 0%, transparent 30%);
+        filter: blur(100px);
+        z-index: -1;
+        animation: breath 20s ease-in-out infinite alternate;
+      }
+
+      @keyframes breath {
+        0% { transform: scale(1) translate(0, 0); }
+        100% { transform: scale(1.1) translate(-2%, 2%); }
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        padding: 3rem 5rem;
+        
+        .logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 2.5rem;
+          font-weight: 300;
+          letter-spacing: 2px;
+          color: var(--forest);
+        }
+
+        nav a {
+          font-family: 'Jost', sans-serif;
+          color: var(--forest);
+          text-decoration: none;
+          margin-left: 3rem;
+          font-size: 0.9rem;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          position: relative;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0; height: 1px;
+            background: var(--clay);
+            transition: width 0.4s ease;
+          }
+
+          &:hover::after { width: 100%; }
+        }
+      }
+
+      main { padding: 0 5rem; }
+
+      .hero {
+        margin: 10vh 0;
+        max-width: 900px;
+
+        h1 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(3rem, 6vw, 6rem);
+          font-weight: 300;
+          line-height: 1.1;
+          color: var(--forest);
+          margin-bottom: 2rem;
+
+          i {
+            color: var(--clay);
+            font-style: italic;
+          }
+        }
+
+        p {
+          font-size: 1.2rem;
+          max-width: 500px;
+          color: rgba(26, 46, 36, 0.8);
+        }
+      }
+
+      .modules {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5rem;
+        margin: 15rem 0;
+
+        .module {
+          background: rgba(255, 255, 255, 0.4);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          padding: 4rem;
+          border-radius: 40px 0 40px 0;
+          transition: all 0.5s ease;
+
+          &:hover {
+            border-radius: 0 40px 0 40px;
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.7);
+          }
+
+          h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--forest);
+          }
+        }
+      }
+
+      .cta-section {
+        text-align: center;
+        margin: 10rem 0;
+        padding: 8rem 0;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 50%;
+          transform: translateX(-50%);
+          width: 1px; height: 5rem;
+          background: var(--forest);
+        }
+
+        h2 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 4rem;
+          font-weight: 300;
+          margin-bottom: 2rem;
+        }
+
+        .btn {
+          display: inline-block;
+          padding: 1rem 3rem;
+          border: 1px solid var(--forest);
+          color: var(--forest);
+          text-decoration: none;
+          font-family: 'Jost', sans-serif;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          border-radius: 30px;
+          transition: all 0.4s ease;
+
+          &:hover {
+            background: var(--forest);
+            color: var(--sand);
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gradient-bg"></div>
+    <header>
+      <div class="logo">Gosub</div>
+      <nav>
+        <a href="#vision">Vision</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#github">Github</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>A browser engine <i>cultivated</i> from scratch.</h1>
+        <p>Gosub is a modular browser engine written in Rust. No corporate agenda. Just pure, composable technology designed to let you build the web experience you envision.</p>
+      </section>
+
+      <section class="modules">
+        <div class="module">
+          <h3>True Modularity</h3>
+          <p>Trait-based architecture allows you to seamlessly swap out the JavaScript engine, rendering backend, or layout system without forking. It is entirely yours to shape.</p>
+        </div>
+        <div class="module">
+          <h3>Written in Rust</h3>
+          <p>Memory safety, concurrency, and performance. Gosub isn't a wrapper around existing massive codebases; it's a completely new, healthy root system for the web.</p>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <h2>Grow with us.</h2>
+        <a href="#" class="btn">Join the Community</a>
+      </section>
+    </main>
+  </body>
+</html>
